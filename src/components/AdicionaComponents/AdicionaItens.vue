@@ -55,17 +55,16 @@
         </v-row>
       </div>
     </v-card>
-    <v-card class="card mt-4" elevation="2" shaped v-if="show">
-      <div v-for="(itens, i) in task" :key="i">
+    <v-card class="card mt-4" elevation="2" shaped v-if="task.length">
+      <div v-for="(tasks, i) in task" :key="i">
         <div class="itens-preenchidos">
-          <p class="mt-2">Produto: {{ itens.produto }}</p>
+          <p class="mt-2">Produto: {{ tasks.item }}</p>
           <v-divider></v-divider>
-          <p class="mt-2">Valor: {{ itens.valor }}</p>
+          <p class="mt-2">Valor: {{ tasks.total }}</p>
           <v-divider></v-divider>
-          <p class="mt-2">Tipo de comercio: {{ itens.valueComercio }}</p>
+          <p class="mt-2">Tipo de comercio: {{ tasks.tipo }}</p>
           <v-divider></v-divider>
-          <p>Parcelas: {{ itens.valueParcela }}</p>
-          <v-divider></v-divider>
+          <p>Parcelas: {{ tasks.parcela }}</p>
         </div>
       </div>
     </v-card>
@@ -73,14 +72,14 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
+
 export default {
   name: "AdicionaItens",
   props: ["mesSelecionado"],
   data() {
     return {
       dialog: false,
-      show: false,
-      task: [],
       produto: "",
       valor: "",
       valueComercio: "",
@@ -115,6 +114,8 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(["setProdutosAdicionados"]),
+
     salvarItens() {
       this.dialog = false;
       if (
@@ -123,19 +124,23 @@ export default {
         this.valueComercio !== "" &&
         this.valueParcela !== ""
       ) {
-        this.task.push({
-          produto: this.produto,
-          valor: this.valor,
-          valueComercio: this.valueComercio,
-          valueParcela: this.valueParcela,
+        this.setProdutosAdicionados({
+          item: this.produto,
+          total: this.valor,
+          tipo: this.valueComercio,
+          parcela: this.valueParcela,
         });
         this.valor = "";
         this.produto = "";
         this.valueComercio = "";
         this.valueParcela = "";
-        this.show = true;
       }
     },
+  },
+  computed: {
+    ...mapGetters({
+      task: "getProdutosAdicionados",
+    }),
   },
 };
 </script>

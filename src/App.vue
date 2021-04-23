@@ -27,30 +27,30 @@ export default {
   components: {
     FooterApp,
   },
-  data(){
+  data() {
     return {
-      dataShowInfo: true
-    }
+      dataShowInfo: true,
+    };
   },
   methods: {
     ...mapMutations(["setShowInfo"]),
-    hidenInfoValue(){
-      this.setShowInfo(this.dataShowInfo = !this.dataShowInfo)
-    }
+    hidenInfoValue() {
+      this.setShowInfo((this.dataShowInfo = !this.dataShowInfo));
+    },
   },
 
   computed: {
     ...mapGetters({
       show: "getHeaderFooter",
-      showInfo: "getShowInfo"
+      showInfo: "getShowInfo",
     }),
   },
 };
 </script>
 
 <style lang="scss">
-.card{
-   margin: 1rem;
+.card {
+  margin: 1rem;
 }
 .header {
   width: 100%;

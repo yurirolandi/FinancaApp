@@ -10,7 +10,7 @@
       </v-card>
     </section>
     <section>
-      <AdicionaItens :mesSelecionado="mesSelecionado" v-if="showAdiciona" />
+      <AdicionaItens :mesSelecionado="mesSelecionado" />
     </section>
   </div>
 </template>

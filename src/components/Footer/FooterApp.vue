@@ -44,7 +44,7 @@ export default {
 .v-footer {
   padding: 0;
 }
-.theme--light.v-sheet{
+.theme--light.v-sheet {
   background-color: transparent;
 }
 </style>

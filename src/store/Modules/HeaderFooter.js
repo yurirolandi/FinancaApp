@@ -1,20 +1,20 @@
 export default {
-    state: {
-        headerEfooter: true
+  state: {
+    headerEfooter: true,
+  },
+  getters: {
+    getHeaderFooter(state) {
+      return state.headerEfooter;
     },
-    getters: {
-        getHeaderFooter(state) {
-            return state.headerEfooter
-        },
+  },
+  mutations: {
+    setHeaderFooter(state, payload) {
+      state.headerEfooter = payload;
     },
-    mutations: {
-        setHeaderFooter(state, payload) {
-            state.headerEfooter = payload;
-        },
+  },
+  actions: {
+    async ActionHeaderFooter({ commit }, valor) {
+      commit("setHeaderFooter", valor);
     },
-    actions: {
-        async ActionHeaderFooter({ commit }, valor) {
-            commit("setHeaderFooter", valor)
-        }
-    }
-}
+  },
+};

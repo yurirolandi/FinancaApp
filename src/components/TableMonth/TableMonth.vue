@@ -29,22 +29,22 @@ export default {
         {
           mes: "Janeiro",
           valor: 159,
-          status: 'Pago',
+          status: "Pago",
         },
         {
           mes: "Fevereiro",
           valor: 237,
-          status: 'Pendente',
+          status: "Pendente",
         },
         {
           mes: "Março",
           valor: 255,
-          status: 'Pago',
+          status: "Pago",
         },
         {
           mes: "Abril",
           valor: 255,
-          status: 'Pendente',
+          status: "Pendente",
         },
       ],
     };
@@ -57,4 +57,3 @@ export default {
   color: #adadad;
 }
 </style>
-

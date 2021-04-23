@@ -42,7 +42,7 @@
     &__valores {
       text-align: right;
       .valores-titulo {
-         color: #232323;
+        color: #232323;
       }
       .valores-data,
       .valores-subtitulo {

@@ -1,16 +1,17 @@
-
 export default {
-    state: {
-        produtosAdicionados: [],
+  state: {
+    produtosAdicionados: [],
+  },
+  getters: {
+    getProdutosAdicionados(state) {
+      console.log("get", state.produtosAdicionados);
+      return state.produtosAdicionados;
     },
-    getters: {
-        getProdutosAdicionados(state) {
-            return state.produtosAdicionados
-        },
+  },
+  mutations: {
+    setProdutosAdicionados(state, payload) {
+      console.log("payload", payload);
+      state.produtosAdicionados.push(payload);
     },
-    mutations: {
-        setProdutosAdicionados(state, payload) {
-            state.meses = payload;
-        },
-    }
-}
+  },
+};

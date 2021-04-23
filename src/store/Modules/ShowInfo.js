@@ -1,15 +1,15 @@
 export default {
-    state: {
-        showInfo: true
+  state: {
+    showInfo: true,
+  },
+  getters: {
+    getShowInfo(state) {
+      return state.showInfo;
     },
-    getters: {
-        getShowInfo(state) {
-            return state.showInfo
-        },
+  },
+  mutations: {
+    setShowInfo(state, payload) {
+      state.showInfo = payload;
     },
-    mutations: {
-        setShowInfo(state, payload) {
-            state.showInfo = payload;
-        },
-    },
-}
+  },
+};

@@ -15,15 +15,14 @@
   </div>
 </template>
 <script>
-
 import { mapGetters } from "vuex";
 
 export default {
   name: "Card",
   props: ["cardTitle", "cardSubtitle", "CardCash", "CardIcon"],
-   computed: {
+  computed: {
     ...mapGetters({
-      showInfo: "getShowInfo"
+      showInfo: "getShowInfo",
     }),
   },
 };
@@ -50,7 +49,7 @@ export default {
     font-weight: bold;
     font-size: 1.5rem;
   }
-  .hidden{
+  .hidden {
     padding: 1.5rem;
     background: #e1e0e0;
   }
