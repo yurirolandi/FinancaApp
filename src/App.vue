@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
+    <v-app-bar app color="primary" dark v-if="show">
       <div class="header">
         <strong>Olá, Yuri</strong>
         <div class="header__icons">
@@ -14,21 +14,31 @@
       <router-view />
     </v-main>
 
-    <FooterApp />
+    <FooterApp v-if="show" />
   </v-app>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import FooterApp from "./components/Footer/FooterApp";
 export default {
   name: "App",
   components: {
     FooterApp,
   },
+
+  computed: {
+    ...mapGetters({
+      show: "getHeaderFooter",
+    }),
+  },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.card{
+   margin: 1rem;
+}
 .header {
   width: 100%;
   display: flex;
