@@ -4,7 +4,8 @@
       <div class="header">
         <strong>Olá, Yuri</strong>
         <div class="header__icons">
-          <v-icon>mdi-eye-off</v-icon>
+          <v-icon v-if="showInfo" @click="hidenInfoValue">mdi-eye</v-icon>
+          <v-icon v-else @click="hidenInfoValue">mdi-eye-off</v-icon>
           <v-icon>mdi-cog</v-icon>
         </div>
       </div>
@@ -19,17 +20,29 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import FooterApp from "./components/Footer/FooterApp";
 export default {
   name: "App",
   components: {
     FooterApp,
   },
+  data(){
+    return {
+      dataShowInfo: true
+    }
+  },
+  methods: {
+    ...mapMutations(["setShowInfo"]),
+    hidenInfoValue(){
+      this.setShowInfo(this.dataShowInfo = !this.dataShowInfo)
+    }
+  },
 
   computed: {
     ...mapGetters({
       show: "getHeaderFooter",
+      showInfo: "getShowInfo"
     }),
   },
 };
