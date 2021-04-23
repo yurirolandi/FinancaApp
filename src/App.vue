@@ -1,56 +1,46 @@
 <template>
   <v-app>
     <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
+      <div class="header">
+        <strong>Olá, Yuri</strong>
+        <div class="header__icons">
+          <v-icon>mdi-eye-off</v-icon>
+          <v-icon>mdi-cog</v-icon>
+        </div>
       </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
     </v-app-bar>
 
     <v-main>
-      <HelloWorld />
+      <router-view />
     </v-main>
+
+    <FooterApp />
   </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
-
+import FooterApp from "./components/Footer/FooterApp";
 export default {
   name: "App",
-
   components: {
-    HelloWorld,
+    FooterApp,
   },
-
-  data: () => ({
-    //
-  }),
 };
 </script>
+
+<style lang="scss" scoped>
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__icons{
+    .v-icon{
+      margin-left: 1rem;
+      border-radius: 50%;
+      background-color: #00000033;      
+      padding: 0.4rem;
+    }
+  }
+}
+</style>
