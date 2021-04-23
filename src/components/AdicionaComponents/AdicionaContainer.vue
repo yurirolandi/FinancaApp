@@ -30,7 +30,7 @@ export default {
   },
   data() {
     return {
-      showAdiciona: true,
+      showAdiciona: false,
     };
   },
   computed: {

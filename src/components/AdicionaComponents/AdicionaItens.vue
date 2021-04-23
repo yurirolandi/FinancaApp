@@ -2,7 +2,7 @@
   <div class="adiciona-itens">
     <v-card class="card" elevation="2" shaped>
       <div class="container-table">
-        <h3>Mês {{mesSelecionado}}</h3>
+        <h3>Mês {{ mesSelecionado }}</h3>
 
         <v-row justify="center">
           <v-dialog
@@ -56,15 +56,17 @@
       </div>
     </v-card>
     <v-card class="card mt-4" elevation="2" shaped v-if="show">
-      <div class="itens-preenchidos">
-        <p class="mt-2">Produto: {{ produto }}</p>
-        <v-divider></v-divider>
-        <p class="mt-2">Valor: {{ valor }}</p>
-        <v-divider></v-divider>
-        <p class="mt-2">Tipo de comercio: {{ valueComercio }}</p>
-        <v-divider></v-divider>
-        <p>Parcelas: {{ valueParcela }}</p>
-        <v-divider></v-divider>
+      <div v-for="(itens, i) in task" :key="i">
+        <div class="itens-preenchidos">
+          <p class="mt-2">Produto: {{ itens.produto }}</p>
+          <v-divider></v-divider>
+          <p class="mt-2">Valor: {{ itens.valor }}</p>
+          <v-divider></v-divider>
+          <p class="mt-2">Tipo de comercio: {{ itens.valueComercio }}</p>
+          <v-divider></v-divider>
+          <p>Parcelas: {{ itens.valueParcela }}</p>
+          <v-divider></v-divider>
+        </div>
       </div>
     </v-card>
   </div>
@@ -73,11 +75,12 @@
 <script>
 export default {
   name: "AdicionaItens",
-  props: ['mesSelecionado'],
+  props: ["mesSelecionado"],
   data() {
     return {
       dialog: false,
       show: false,
+      task: [],
       produto: "",
       valor: "",
       valueComercio: "",
@@ -116,10 +119,20 @@ export default {
       this.dialog = false;
       if (
         this.valor !== "" &&
-        this.produto &&
+        this.produto !== "" &&
         this.valueComercio !== "" &&
-        this.valueParcela
+        this.valueParcela !== ""
       ) {
+        this.task.push({
+          produto: this.produto,
+          valor: this.valor,
+          valueComercio: this.valueComercio,
+          valueParcela: this.valueParcela,
+        });
+        this.valor = "";
+        this.produto = "";
+        this.valueComercio = "";
+        this.valueParcela = "";
         this.show = true;
       }
     },

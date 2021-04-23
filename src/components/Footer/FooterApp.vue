@@ -1,11 +1,11 @@
 <template>
   <v-footer v-bind="localAttrs" :padless="padless">
     <v-card flat tile width="100%" class="primary lighten-1 text-center">
-      <v-card-text>
+      <!-- <v-card-text>
         <Slide />
       </v-card-text>
 
-      <v-divider></v-divider>
+      <v-divider></v-divider> -->
 
       <v-card-text class="white--text">
         {{ new Date().getFullYear() }} — <strong>Finança App</strong>
@@ -15,10 +15,10 @@
 </template>
 
 <script>
-import Slide from "../Slide/Slide";
+// import Slide from "../Slide/Slide";
 export default {
   components: {
-    Slide,
+    // Slide,
   },
   data: () => ({
     padless: false,

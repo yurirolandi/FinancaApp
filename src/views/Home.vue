@@ -59,6 +59,7 @@ export default {
 <style lang="scss" scoped>
 .home {
   background-color: #f2f2f2;
+  padding-top: 1rem;
   .card {
     margin: 1rem;
   }
