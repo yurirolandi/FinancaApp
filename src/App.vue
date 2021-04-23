@@ -34,11 +34,11 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  &__icons{
-    .v-icon{
+  &__icons {
+    .v-icon {
       margin-left: 1rem;
       border-radius: 50%;
-      background-color: #00000033;      
+      background-color: #00000033;
       padding: 0.4rem;
     }
   }
