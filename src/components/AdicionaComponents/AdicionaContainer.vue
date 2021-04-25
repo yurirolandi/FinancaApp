@@ -1,7 +1,7 @@
 <template>
   <div class="adicionaContainer">
     <SharedHeader />
-    <section>
+    <section class="header-fixed">
       <v-card class="card" elevation="2" shaped>
         <div class="container-inputs">
           <Selected :meses="mes" />
@@ -9,7 +9,7 @@
         </div>
       </v-card>
     </section>
-    <section>
+    <section class="header-adiciona">
       <AdicionaItens :mesSelecionado="mesSelecionado" v-if="showAdiciona" />
     </section>
   </div>
@@ -57,11 +57,23 @@ export default {
 .adicionaContainer {
   .card {
     margin: 1rem;
+  }
+
+  .header-fixed {
+    position: fixed;
+    z-index: 10;
+    top: 55px;
+    width: 100%;
+    background: white;
     .container-inputs {
       padding: 1.2rem;
       display: flex;
       justify-content: space-between;
     }
+  }
+
+  .header-adiciona {
+    padding-top: 200px;
   }
 }
 </style>
