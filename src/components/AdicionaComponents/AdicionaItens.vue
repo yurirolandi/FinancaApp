@@ -28,17 +28,23 @@
                 </v-toolbar-items>
               </v-toolbar>
               <div class="container-input">
-                <v-text-field label="Produto" v-model="produto"></v-text-field>
-                <v-text-field label="Valor" v-model="valor"></v-text-field>
+                <v-text-field
+                  label="Produto"
+                  v-model="values.produto"
+                ></v-text-field>
+                <v-text-field
+                  label="Valor"
+                  v-model="values.valor"
+                ></v-text-field>
                 <v-select
                   :items="parcela"
                   label="Parcelas"
                   dense
                   outlined
-                  v-model="valueParcela"
+                  v-model="values.valueParcela"
                 ></v-select>
                 <v-select
-                  v-model="valueComercio"
+                  v-model="values.valueComercio"
                   :items="comercios"
                   label="Selecione o tipo de comercio"
                 >
@@ -55,24 +61,53 @@
         </v-row>
       </div>
     </v-card>
-    <v-card class="card mt-4" elevation="2" shaped v-if="task.length">
+    <div v-if="task.length">
       <div v-for="(tasks, i) in task" :key="i">
-        <div class="itens-preenchidos">
-          <p class="mt-2">Produto: {{ tasks.item }}</p>
-          <v-divider></v-divider>
-          <p class="mt-2">Valor: {{ tasks.total }}</p>
-          <v-divider></v-divider>
-          <p class="mt-2">Tipo de comercio: {{ tasks.tipo }}</p>
-          <v-divider></v-divider>
-          <p>Parcelas: {{ tasks.parcela }}</p>
-        </div>
+        <v-card
+          v-if="tasks.mes === mesSelecionado"
+          class="card mt-4"
+          elevation="2"
+          shaped
+        >
+          <div class="itens-preenchidos">
+            <p class="mt-2">
+              Produto: <span>{{ tasks.item }}</span>
+            </p>
+            <v-divider></v-divider>
+            <p class="mt-2">
+              Valor: <span>{{ tasks.total }}</span>
+            </p>
+            <v-divider></v-divider>
+            <p class="mt-2">
+              Tipo de comercio: <span>{{ tasks.tipo }}</span>
+            </p>
+            <v-divider></v-divider>
+            <p>
+              Parcelas: <span>{{ tasks.parcela }}</span>
+            </p>
+          </div>
+        </v-card>
       </div>
-    </v-card>
+    </div>
+    <v-btn
+      v-if="task.length"
+      @click="enviaDados"
+      class="mb-10"
+      fab
+      dark
+      absolute
+      bottom
+      right
+      color="indigo"
+    >
+      <v-icon dark> mdi-content-save </v-icon>
+    </v-btn>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
+// import { requestAxios } from "../../server/axios";
 
 export default {
   name: "AdicionaItens",
@@ -80,10 +115,12 @@ export default {
   data() {
     return {
       dialog: false,
-      produto: "",
-      valor: "",
-      valueComercio: "",
-      valueParcela: "",
+      values: {
+        produto: "",
+        valor: "",
+        valueComercio: "",
+        valueParcela: "",
+      },
       comercios: ["Mercado", "Lazer", "Casa", "Salão", "Outros"],
       parcela: [
         1,
@@ -119,22 +156,27 @@ export default {
     salvarItens() {
       this.dialog = false;
       if (
-        this.valor !== "" &&
-        this.produto !== "" &&
-        this.valueComercio !== "" &&
-        this.valueParcela !== ""
+        this.values.valor !== "" &&
+        this.values.produto !== "" &&
+        this.values.valueComercio !== "" &&
+        this.values.valueParcela !== ""
       ) {
         this.setProdutosAdicionados({
-          item: this.produto,
-          total: this.valor,
-          tipo: this.valueComercio,
-          parcela: this.valueParcela,
+          mes: this.mesSelecionado,
+          item: this.values.produto,
+          total: this.values.valor,
+          tipo: this.values.valueComercio,
+          parcela: this.values.valueParcela,
         });
-        this.valor = "";
-        this.produto = "";
-        this.valueComercio = "";
-        this.valueParcela = "";
+        this.values.valor = "";
+        this.values.produto = "";
+        this.values.valueComercio = "";
+        this.values.valueParcela = "";
       }
+    },
+    async enviaDados() {
+      console.log('envio', this.task);
+      // await requestAxios.post(`produto${this.mesSelecionado}`, this.task);
     },
   },
   computed: {
@@ -163,5 +205,10 @@ export default {
   padding: 1rem;
   display: flex;
   flex-direction: column;
+  p {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem;
+  }
 }
 </style>

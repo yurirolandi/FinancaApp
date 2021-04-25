@@ -3,7 +3,7 @@ export default {
     produtosAdicionados: [],
   },
   getters: {
-    getProdutosAdicionados(state) {      
+    getProdutosAdicionados(state) {          
       return state.produtosAdicionados;
     },
   },
