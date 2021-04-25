@@ -40,13 +40,15 @@ export default {
     }),
   },
   methods: {
-    ...mapActions(["getMesesApi"]),
+    ...mapActions(["getMesesApi", "getParcelasApi", "getComercioApi"]),
     adicionaComponente() {
       this.showAdiciona = true;
     },
   },
   created() {
     this.getMesesApi();
+    this.getParcelasApi();
+    this.getComercioApi();
   },
 };
 </script>
