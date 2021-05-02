@@ -23,7 +23,7 @@ export default {
     async getValorTotalApi({ commit }) {
       try {
         return await requestAxios
-          .get("meses")
+          .get("produtoJaneiro")
           .then((response) => {
             commit("setValorTotal", response.data);
           })

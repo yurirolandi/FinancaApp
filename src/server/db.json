@@ -49,7 +49,43 @@
       "mes": "Dezembro"
     }
   ],
-  "produtoJaneiro": [],
+  "produtoJaneiro": [
+    {
+      "mes": "Janeiro",
+      "item": "teste 1",
+      "total": "20,00",
+      "tipo": "Lazer",
+      "parcela": 1
+    },
+    {
+      "mes": "Janeiro",
+      "item": "teste 2",
+      "total": "30,00",
+      "tipo": "Mercado",
+      "parcela": 1
+    },
+    {
+      "mes": "Janeiro",
+      "item": "teste 3",
+      "total": "40,00",
+      "tipo": "Mercado",
+      "parcela": 1
+    },
+    {
+      "mes": "Janeiro",
+      "item": "teste 4",
+      "total": "40,00",
+      "tipo": "Mercado",
+      "parcela": 1
+    },
+    {
+      "mes": "Janeiro",
+      "item": "teste 5",
+      "total": "45,00",
+      "tipo": "Outros",
+      "parcela": 1
+    }
+  ],
   "produtoFevereiro": [],
   "produtoMarço": [],
   "produtoAbril": [],
