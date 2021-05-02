@@ -63,45 +63,41 @@
         </div>
       </v-card>
     </div>
-    <div class="container-task" v-if="array.length">
-      <div v-for="(tasks, i) in array" :key="i">
-        <div v-for="(mes, i) in tasks" :key="i">
-          <div v-for="(compra, i) in mes" :key="i">
-            <v-card
-              class="card mt-4"
-              elevation="2"
-              shaped
-              v-if="compra.mes === mesSelecionado"
-            >
-              <div class="itens-preenchidos">
-                <p class="mt-2">
-                  Produto: <span>{{ compra.item }}</span>
-                </p>
-                <v-divider></v-divider>
-                <p class="mt-2">
-                  Valor: <span>{{ compra.total }}</span>
-                </p>
-                <v-divider></v-divider>
-                <p class="mt-2">
-                  Tipo de comercio: <span>{{ compra.tipo }}</span>
-                </p>
-                <v-divider></v-divider>
-                <p>
-                  Parcelas: <span>{{ compra.parcela }}</span>
-                </p>
-              </div>
-            </v-card>
+    <div class="container-task" v-if="task.length">
+      <div v-for="(compra, i) in task" :key="i">
+        <v-card
+          class="card mt-4"
+          elevation="2"
+          shaped
+          v-if="compra.mes === mesSelecionado"
+        >
+          <div class="itens-preenchidos">
+            <p class="mt-2">
+              Produto: <span>{{ compra.item }}</span>
+            </p>
+            <v-divider></v-divider>
+            <p class="mt-2">
+              Valor: <span>{{ compra.total }}</span>
+            </p>
+            <v-divider></v-divider>
+            <p class="mt-2">
+              Tipo de comercio: <span>{{ compra.tipo }}</span>
+            </p>
+            <v-divider></v-divider>
+            <p>
+              Parcelas: <span>{{ compra.parcela }}</span>
+            </p>
           </div>
-        </div>
+        </v-card>
       </div>
     </div>
     <v-btn
-      v-if="array.length"
+      v-if="task.length"
       @click="enviaDados"
       class="mb-10"
       fab
       dark
-      absolute
+      fixed
       bottom
       right
       color="indigo"
@@ -113,7 +109,7 @@
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
-// import { requestAxios } from "../../server/axios";
+import { requestAxios } from "../../server/axios";
 
 export default {
   name: "AdicionaItens",
@@ -127,11 +123,10 @@ export default {
         valueComercio: "",
         valueParcela: "",
       },
-      array: [],
     };
   },
   methods: {
-    ...mapMutations(["setProdutosAdicionados"]),
+    ...mapMutations(["setProdutosAdicionados", "setLimpaProdutosAdicionados"]),
 
     salvarItens() {
       this.dialog = false;
@@ -141,28 +136,16 @@ export default {
         this.values.valueComercio !== "" &&
         this.values.valueParcela !== ""
       ) {
-        let filtroArray = this.task.find((x) => x[this.mesSelecionado]);
-        if (filtroArray) {
-          filtroArray[this.mesSelecionado].push({
+        this.setProdutosAdicionados(
+          {
             mes: this.mesSelecionado,
             item: this.values.produto,
             total: this.values.valor,
             tipo: this.values.valueComercio,
             parcela: this.values.valueParcela,
-          });
-        } else {
-          this.array.push({
-            [this.mesSelecionado]: [
-              {
-                mes: this.mesSelecionado,
-                item: this.values.produto,
-                total: this.values.valor,
-                tipo: this.values.valueComercio,
-                parcela: this.values.valueParcela,
-              },
-            ],
-          });
-        }
+          },
+        );
+
         this.values.valor = "";
         this.values.produto = "";
         this.values.valueComercio = "";
@@ -170,8 +153,9 @@ export default {
       }
     },
     async enviaDados() {
-      console.log("envio", this.task);
-      // await requestAxios.post(`produto${this.mesSelecionado}`, this.task);
+      await requestAxios.post(`produto${this.mesSelecionado}`, this.task);
+      this.setLimpaProdutosAdicionados([]);
+      this.$router.push('/')
     },
   },
   computed: {
