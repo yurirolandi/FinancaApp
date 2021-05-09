@@ -9,6 +9,19 @@ export default {
     getValorTotal(state) {
       return state.valorTotal;
     },
+    getTotal(state) {
+      let newState = state.valorTotal;
+      const reducer = (accumulator, currentValue) => accumulator + currentValue;
+      let valor = [];
+      newState.forEach(v => valor.push(parseInt(v.total)))
+
+      let total;
+
+      if(valor.length !== 0) {
+        total  = valor.reduce(reducer)
+      }
+      return total;
+    },
     getHeaderEfooter(state) {
       return state.headerEfooter;
     },
@@ -23,7 +36,7 @@ export default {
     async getValorTotalApi({ commit }) {
       try {
         return await requestAxios
-          .get("produtoJaneiro")
+          .get("Janeiro")
           .then((response) => {
             commit("setValorTotal", response.data);
           })
