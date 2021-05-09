@@ -10,10 +10,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in desserts" :key="item.mes">
-            <td>{{ item.mes }}</td>
-            <td>{{ item.valor }}</td>
-            <td>{{ item.status }}</td>
+          <tr>
+            <td>Janeiro</td>
+            <td>{{valor}}</td>
+            <td>Pago</td>
           </tr>
         </tbody>
       </template>
@@ -21,33 +21,20 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "TableMonth",
   data() {
-    return {
-      desserts: [
-        {
-          mes: "Janeiro",
-          valor: 159,
-          status: "Pago",
-        },
-        {
-          mes: "Fevereiro",
-          valor: 237,
-          status: "Pendente",
-        },
-        {
-          mes: "Março",
-          valor: 255,
-          status: "Pago",
-        },
-        {
-          mes: "Abril",
-          valor: 255,
-          status: "Pendente",
-        },
-      ],
-    };
+    return {};
+  },
+  computed: {
+    ...mapGetters({
+      total: "getTotal",
+    }),
+     valor(){
+      return `R$ ${this.total}`
+    }
   },
 };
 </script>

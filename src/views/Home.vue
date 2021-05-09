@@ -22,11 +22,6 @@
         <TableMonth />
       </v-card>
     </section>
-    <section>
-      <v-card class="card" elevation="2" shaped>
-        <TableMonth />
-      </v-card>
-    </section>
   </div>
 </template>
 
