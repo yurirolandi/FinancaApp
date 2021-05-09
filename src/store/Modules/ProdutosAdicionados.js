@@ -7,7 +7,7 @@ export default {
     comercio: [],
   },
   getters: {
-    getProdutosAdicionados(state) {          
+    getProdutosAdicionados(state) {        
       return state.produtosAdicionados;
     },
     getParcelas(state) {
@@ -20,6 +20,9 @@ export default {
   mutations: {
     setProdutosAdicionados(state, payload) {
       state.produtosAdicionados.push(payload);
+    },
+    setLimpaProdutosAdicionados(state, payload) {
+      state.produtosAdicionados = payload
     },
     setParcelas(state, payload) {
       state.parcela = payload
