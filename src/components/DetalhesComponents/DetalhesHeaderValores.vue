@@ -2,8 +2,11 @@
   <div class="detalhes-header">
     <div class="detalhes-header__container">
       <div class="detalhes-bars">
-        <div class="detalhes-bar__atual"></div>
-        <div class="detalhes-bar__proximas-faturas"></div>
+        <div class="detalhes-bar__atual" :style="{ height: valorAtual }"></div>
+        <div
+          class="detalhes-bar__proximas-faturas"
+          :style="{ height: valorProximas }"
+        ></div>
       </div>
       <div class="detalhes-box">
         <div class="detalhes-box__atual">
@@ -29,6 +32,18 @@ export default {
     ...mapGetters({
       total: "getTotal",
     }),
+    valorAtual() {
+      let soma = this.total + 451.99;
+      let multiplicado = this.total * 100;
+      let resultado = (multiplicado / soma);
+      return Math.round(resultado) + '%';
+
+    },
+    valorProximas() {
+      let proximas = this.valorAtual.split('%')[0];
+      let resultado = (100 - proximas);
+      return Math.round(resultado) + '%';
+    },
   },
 };
 </script>
