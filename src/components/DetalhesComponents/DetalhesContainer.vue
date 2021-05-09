@@ -17,8 +17,5 @@ export default {
     DetalhesHeaderValores,
     SharedHeader,
   },
-  data() {
-    return {};
-  },
 };
 </script>
