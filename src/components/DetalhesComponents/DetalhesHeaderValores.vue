@@ -8,7 +8,7 @@
       <div class="detalhes-box">
         <div class="detalhes-box__atual">
           <p>Fatura atual</p>
-          <p class="fatura-atual">R$ 451,99</p>
+          <p class="fatura-atual">R$ {{ total }}</p>
         </div>
         <div class="detalhes-box__proximas-faturas">
           <p>Próximas faturas</p>
@@ -20,8 +20,16 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "DetalhesHeaderValores",
+
+  computed: {
+    ...mapGetters({
+      total: "getTotal",
+    }),
+  },
 };
 </script>
 

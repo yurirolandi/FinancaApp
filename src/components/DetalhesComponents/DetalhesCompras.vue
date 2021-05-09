@@ -8,7 +8,7 @@
             <p class="servico-subtitulo">{{produto.item}}</p>
           </div>
           <div class="timeline__valores">
-            <p class="valores-data">12 Abr</p>
+            <p class="valores-data">{{produto.data}}</p>
             <p class="valores-titulo">R$ {{produto.total}}</p>
             <p class="valores-subtitulo">em {{produto.parcela}}x</p>
           </div>
@@ -25,7 +25,7 @@ export default {
 
   computed: {
     ...mapGetters({
-      produtos: "getValorTotal"
+      produtos: "getValorTotal",
     }),
   },
 }

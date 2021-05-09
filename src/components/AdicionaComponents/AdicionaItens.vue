@@ -136,15 +136,18 @@ export default {
         this.values.valueComercio !== "" &&
         this.values.valueParcela !== ""
       ) {
-        this.setProdutosAdicionados(
-          {
-            mes: this.mesSelecionado,
-            item: this.values.produto,
-            total: this.values.valor,
-            tipo: this.values.valueComercio,
-            parcela: this.values.valueParcela,
-          },
-        );
+        const data = new Date;
+        let dataString = data.toDateString();
+        
+        this.setProdutosAdicionados({
+          data: dataString,
+          nome: 'yuri',
+          mes: this.mesSelecionado,
+          item: this.values.produto,
+          total: this.values.valor,
+          tipo: this.values.valueComercio,
+          parcela: this.values.valueParcela,
+        });
 
         this.values.valor = "";
         this.values.produto = "";
@@ -152,10 +155,13 @@ export default {
         this.values.valueParcela = "";
       }
     },
-    async enviaDados() {
-      await requestAxios.post(`produto${this.mesSelecionado}`, this.task);
+    enviaDados() {
+      this.task.forEach(async (tasks) => {
+        await requestAxios.post(`${this.mesSelecionado}`, tasks);
+      });
+
       this.setLimpaProdutosAdicionados([]);
-      this.$router.push('/')
+      this.$router.push("/");
     },
   },
   computed: {
