@@ -13,7 +13,7 @@
         CardIcon="mdi-credit-card-outline"
         cardTitle="Cartão de Crédito"
         cardSubtitle="Fatura Atual"
-        CardCash="R$ 451,99"
+        :CardCash="valor"
         @detalhes="openDetalhes"
       />
     </section>
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters  } from "vuex";
 
 import card from "../components/Card/Card";
 import TableMonth from "../components/TableMonth/TableMonth";
@@ -43,7 +43,7 @@ export default {
     model: null,
   }),
   methods: {
-    ...mapActions(["ActionHeaderFooter"]),
+    ...mapActions(["ActionHeaderFooter", "getValorTotalApi"]),
     openDetalhes() {
       this.ActionHeaderFooter(false);
       this.$router.push({ path: "/detalhes" });
@@ -52,6 +52,18 @@ export default {
       this.ActionHeaderFooter(false);
       this.$router.push({ path: "/adiciona-compras" });
     },
+  },
+   computed: {
+    ...mapGetters({
+      total: "getTotal",
+    }),
+    valor(){
+      return `R$ ${this.total}`
+    }
+  },
+
+   created() {
+    this.getValorTotalApi();
   },
 };
 </script>

@@ -1,4 +1,17 @@
 {
+  "2021": {
+    "produtoFevereiro": [],
+    "produtoMarço": [],
+    "produtoAbril": [],
+    "produtoMaio": [],
+    "produtoJunho": [],
+    "produtoJulho": [],
+    "produtoAgosto": [],
+    "produtoSetembro": [],
+    "produtoOutubro": [],
+    "produtoNovembro": [],
+    "produtoDezembro": []
+  },
   "meses": [
     {
       "id": 1,
@@ -49,54 +62,68 @@
       "mes": "Dezembro"
     }
   ],
-  "produtoJaneiro": [
+  "Janeiro": [
     {
+      "data": "Sat May 08 2021",
+      "nome": "yuri",
       "mes": "Janeiro",
-      "item": "teste 1",
-      "total": "20,00",
+      "item": "item 1",
+      "total": "100",
+      "tipo": "Mercado",
+      "parcela": 2,
+      "id": 1
+    },
+    {
+      "data": "Sat May 08 2021",
+      "nome": "yuri",
+      "mes": "Janeiro",
+      "item": "sd.rolandi@gmail.com",
+      "total": "50",
       "tipo": "Lazer",
-      "parcela": 1
+      "parcela": 2,
+      "id": 2
     },
     {
+      "data": "Sat May 08 2021",
+      "nome": "yuri",
       "mes": "Janeiro",
-      "item": "teste 2",
-      "total": "30,00",
+      "item": "teste data",
+      "total": "20",
+      "tipo": "Lazer",
+      "parcela": 2,
+      "id": 3
+    },
+    {
+      "data": "Sat May 08 2021",
+      "nome": "yuri",
+      "mes": "Janeiro",
+      "item": "alo",
+      "total": "1",
       "tipo": "Mercado",
-      "parcela": 1
+      "parcela": 2,
+      "id": 4
     },
     {
+      "data": "Sat May 08 2021",
+      "nome": "yuri",
       "mes": "Janeiro",
-      "item": "teste 3",
-      "total": "40,00",
+      "item": "yuri",
+      "total": "50",
       "tipo": "Mercado",
-      "parcela": 1
+      "parcela": 3,
+      "id": 5
     },
     {
+      "data": "Sat May 08 2021",
+      "nome": "yuri",
       "mes": "Janeiro",
-      "item": "teste 4",
-      "total": "40,00",
-      "tipo": "Mercado",
-      "parcela": 1
-    },
-    {
-      "mes": "Janeiro",
-      "item": "teste 5",
-      "total": "45,00",
-      "tipo": "Outros",
-      "parcela": 1
+      "item": "item 1",
+      "total": "25",
+      "tipo": "Casa",
+      "parcela": 3,
+      "id": 6
     }
   ],
-  "produtoFevereiro": [],
-  "produtoMarço": [],
-  "produtoAbril": [],
-  "produtoMaio": [],
-  "produtoJunho": [],
-  "produtoJulho": [],
-  "produtoAgosto": [],
-  "produtoSetembro": [],
-  "produtoOutubro": [],
-  "produtoNovembro": [],
-  "produtoDezembro": [],
   "parcela": [
     1,
     2,
