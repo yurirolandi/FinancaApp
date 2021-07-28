@@ -1,77 +1,21 @@
 <template>
-  <div class="home">
-    <section>
-      <card
-        CardIcon="mdi-bank"
-        cardTitle="Adicionar Compras"
-        cardSubtitle="Adicione as compras do mês"
-        @detalhes="adicionarCompras"
-      />
-    </section>
-    <section>
-      <card
-        CardIcon="mdi-credit-card-outline"
-        cardTitle="Cartão de Crédito"
-        cardSubtitle="Fatura Atual"
-        :CardCash="valor"
-        @detalhes="openDetalhes"
-      />
-    </section>
-    <section>
-      <v-card class="card" elevation="2" shaped>
-        <TableMonth />
-      </v-card>
-    </section>
-  </div>
+  <v-container>
+    <v-card elevation="2">
+      <v-card-title class="text-h4"> Finança </v-card-title>
+    </v-card>
+    <v-card elevation="2" class="mt-5">
+      <NotificacaoLista />
+    </v-card>
+  </v-container>
 </template>
 
 <script>
-import { mapActions, mapGetters  } from "vuex";
-
-import card from "../components/Card/Card";
-import TableMonth from "../components/TableMonth/TableMonth";
+import NotificacaoLista from "../components/Table/NotificacaoLista.vue";
 
 export default {
   name: "Home",
-  components: { card, TableMonth },
-  data: () => ({
-    model: null,
-  }),
-  methods: {
-    ...mapActions(["ActionHeaderFooter", "getValorTotalApi"]),
-    openDetalhes() {
-      this.ActionHeaderFooter(false);
-      this.$router.push({ path: "/detalhes" });
-    },
-    adicionarCompras() {
-      this.ActionHeaderFooter(false);
-      this.$router.push({ path: "/adiciona-compras" });
-    },
-  },
-   computed: {
-    ...mapGetters({
-      total: "getTotal",
-    }),
-    valor(){
-      return `R$ ${this.total}`
-    }
-  },
-
-   created() {
-    this.getValorTotalApi();
+  components: {
+    NotificacaoLista,
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.home {
-  background-color: #f2f2f2;
-  padding-top: 1rem;
-  .card {
-    margin: 1rem;
-  }
-  section:last-child {
-    padding-bottom: 183px;
-  }
-}
-</style>
