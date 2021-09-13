@@ -2,7 +2,7 @@
   <v-data-table :headers="headers" :items="currentItems" class="elevation-1">
     <template v-slot:top>
       <v-toolbar flat>
-        <v-toolbar-title>{{ currentMonth }}</v-toolbar-title>
+        <v-toolbar-title>{{ currentMonth.nome }}</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
 
