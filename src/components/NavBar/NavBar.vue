@@ -1,0 +1,32 @@
+<template>
+  <v-app-bar color="deep-purple accent-4" dense dark>
+    <v-avatar color="blue" size="38">
+      <span class="white--text text-h6">YR</span>
+    </v-avatar>
+    <v-spacer></v-spacer>
+    <v-toolbar-title class="user"
+      ><span class="user__welcome">Bem vindo,</span>
+      <span class="user__name">Yuri</span>
+    </v-toolbar-title>
+  </v-app-bar>
+</template>
+
+<script>
+export default {};
+</script>
+
+<style lang="scss" scoped>
+.v-toolbar {
+  flex: 0;
+}
+.user {
+  &__welcome {
+    font-size: 1.1rem;
+    margin-right: 0.2rem;
+  }
+  &__name {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+}
+</style>
