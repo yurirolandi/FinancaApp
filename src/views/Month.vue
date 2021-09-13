@@ -11,7 +11,7 @@
               <v-list-item-title v-text="mes.nome"></v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
-              <v-btn depressed small :to="'month/' + mes.nome">
+              <v-btn depressed small @click.stop="viewMonth(mes.nome)">
                 VER MÊS
                 <v-icon color="orange darken-4" right> mdi-open-in-new </v-icon>
               </v-btn>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   data: () => ({
     meses: [
@@ -41,6 +42,13 @@ export default {
       { nome: "DEZEMBRO", value: 12 },
     ],
   }),
+  methods: {
+    ...mapMutations(["setCurrentMonth"]),
+    viewMonth(month) {
+      this.setCurrentMonth(month);
+      this.$router.push({ path: "month/" + month });
+    },
+  },
 };
 </script>
 

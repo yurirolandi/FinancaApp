@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import TableMonth from "./Modules/TableMonth";
 import SnackBarStatus from "./Modules/SnackBarStatus";
 import Loading from "./Modules/Loading";
 
@@ -15,5 +16,6 @@ export default new Vuex.Store({
   modules: {
     SnackBarStatus,
     Loading,
+    TableMonth,
   },
 });

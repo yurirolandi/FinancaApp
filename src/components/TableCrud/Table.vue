@@ -1,8 +1,8 @@
 <template>
-  <v-data-table :headers="headers" :items="desserts" class="elevation-1">
+  <v-data-table :headers="headers" :items="currentItems" class="elevation-1">
     <template v-slot:top>
       <v-toolbar flat>
-        <v-toolbar-title>Mês selecionado</v-toolbar-title>
+        <v-toolbar-title>{{ currentMonth }}</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
 
@@ -109,13 +109,12 @@
         mdi-delete
       </v-icon>
     </template>
-    <template v-slot:no-data>
-      <v-btn color="primary" @click="initialize"> Reset </v-btn>
-    </template>
+    <template v-slot:no-data> <h2>Sem registro !!!</h2> </template>
   </v-data-table>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   data: () => ({
     dialog: false,
@@ -125,7 +124,7 @@ export default {
     dateRules: [(v) => !!v || "Data é Obrigatório"],
     headers: [
       {
-        text: "Contas",
+        text: "Conta",
         align: "start",
         sortable: false,
         value: "conta",
@@ -149,6 +148,10 @@ export default {
   }),
 
   computed: {
+    ...mapGetters({
+      currentMonth: "getCurrentMonth",
+      currentItems: "getCurrentItems",
+    }),
     formTitle() {
       return this.editedIndex === -1 ? "Novo Item" : "Editar Item";
     },
@@ -162,47 +165,7 @@ export default {
       val || this.closeDelete();
     },
   },
-
-  created() {
-    this.initialize();
-  },
-
   methods: {
-    initialize() {
-      this.desserts = [
-        {
-          conta: "Frozen Yogurt",
-          valor: 159,
-          dia: "20/02/2021",
-        },
-        {
-          conta: "Frozen Yogurt",
-          valor: 159,
-          dia: "20/02/2021",
-        },
-        {
-          conta: "Frozen Yogurt",
-          valor: 159,
-          dia: "20/02/2021",
-        },
-        {
-          conta: "Frozen Yogurt",
-          valor: 159,
-          dia: "20/02/2021",
-        },
-        {
-          conta: "Frozen Yogurt",
-          valor: 159,
-          dia: "20/02/2021",
-        },
-        {
-          conta: "Frozen Yogurt",
-          valor: 159,
-          dia: "20/02/2021",
-        },
-      ];
-    },
-
     editItem(item) {
       this.editedIndex = this.desserts.indexOf(item);
       this.editedItem = Object.assign({}, item);
