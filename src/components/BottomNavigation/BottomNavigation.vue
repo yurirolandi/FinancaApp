@@ -11,10 +11,14 @@
 <script>
 export default {
   data: () => ({
-    value: 1,
+    value: "Home",
     items: [
       { title: "Home", icon: "mdi-home", route: "/" },
-      { title: "Balanço", icon: "mdi-chart-histogram", route: "/grafico" },
+      {
+        title: "Balanço",
+        icon: "mdi-chart-histogram",
+        route: "/grafico",
+      },
       { title: "Meses", icon: "mdi-calendar-month", route: "/month" },
       { title: "Perfil", icon: "mdi-account", route: "account" },
     ],
