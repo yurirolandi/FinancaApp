@@ -4,52 +4,55 @@
       <v-card-title class="text-h4"> Meses </v-card-title>
     </v-card>
     <v-card elevation="2" class="mt-5">
-      <v-list>
-        <v-list-item-group color="primary">
-          <v-list-item v-for="(mes, i) in meses" :key="i">
+      <v-virtual-scroll :items="meses" height="450" item-height="64">
+        <template v-slot:default="{ item }">
+          <v-list-item :key="item.value">
             <v-list-item-content>
-              <v-list-item-title v-text="mes.nome"></v-list-item-title>
+              <v-list-item-title v-text="item.mes"></v-list-item-title>
             </v-list-item-content>
+
             <v-list-item-action>
               <v-btn
                 depressed
                 small
-                @click.stop="viewMonth({ nome: mes.nome, value: mes.value })"
+                @click.stop="viewMonth({ nome: item.mes, value: item.value })"
               >
                 VER MÊS
                 <v-icon color="orange darken-4" right> mdi-open-in-new </v-icon>
               </v-btn>
             </v-list-item-action>
           </v-list-item>
-        </v-list-item-group>
-      </v-list>
+
+          <v-divider></v-divider>
+        </template>
+      </v-virtual-scroll>
     </v-card>
   </v-container>
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapActions } from "vuex";
 export default {
   data: () => ({
     meses: [
-      { nome: "JANEIRO", value: 1 },
-      { nome: "FEVEREIRO", value: 2 },
-      { nome: "MARÇO", value: 3 },
-      { nome: "ABRIL", value: 4 },
-      { nome: "MAIO", value: 5 },
-      { nome: "JUNHO", value: 6 },
-      { nome: "JULHO", value: 7 },
-      { nome: "AGOSTO", value: 8 },
-      { nome: "SETEMBRO", value: 9 },
-      { nome: "OUTUBRO", value: 10 },
-      { nome: "NOVEMBRO", value: 11 },
-      { nome: "DEZEMBRO", value: 12 },
+      { mes: "JANEIRO", value: 5 },
+      { mes: "FEVEREIRO", value: 6 },
+      { mes: "MARÇO", value: 7 },
+      { mes: "ABRIL", value: 8 },
+      { mes: "MAIO", value: 9 },
+      { mes: "JUNHO", value: 10 },
+      { mes: "JULHO", value: 11 },
+      { mes: "AGOSTO", value: 12 },
+      { mes: "SETEMBRO", value: 13 },
+      { mes: "OUTUBRO", value: 14 },
+      { mes: "NOVEMBRO", value: 15 },
+      { mes: "DEZEMBRO", value: 16 },
     ],
   }),
   methods: {
-    ...mapMutations(["setCurrentMonth"]),
+    ...mapActions(["getMonth"]),
     viewMonth(month) {
-      this.setCurrentMonth(month);
+      this.getMonth(month.value);
       this.$router.push({ path: "month/" + month.nome });
     },
   },

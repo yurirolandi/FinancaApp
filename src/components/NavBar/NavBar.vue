@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar color="deep-purple accent-4" dense dark>
+  <v-app-bar color="deep-purple accent-4" dense dark fixed>
     <v-avatar color="blue" size="38">
       <span class="white--text text-h6">YR</span>
     </v-avatar>

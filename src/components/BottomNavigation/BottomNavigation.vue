@@ -1,5 +1,5 @@
 <template>
-  <v-bottom-navigation v-model="value" shift>
+  <v-bottom-navigation v-model="value" shift fixed>
     <v-btn v-for="(item, index) in items" :key="index" router :to="item.route">
       <span>{{ item.title }}</span>
 

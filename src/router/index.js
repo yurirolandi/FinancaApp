@@ -25,6 +25,16 @@ const routes = [
     name: "MonthSelected",
     component: () => import("../views/MonthSelected.vue"),
   },
+  {
+    path: "/Login",
+    name: "Login",
+    component: () => import("../views/Login.vue"),
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: () => import("../views/Register.vue"),
+  },
 ];
 
 const router = new VueRouter({

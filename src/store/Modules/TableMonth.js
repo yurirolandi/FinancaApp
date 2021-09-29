@@ -1,3 +1,5 @@
+import { MesesService } from "../../services/Month";
+
 export default {
   state: {
     currentMonth: "",
@@ -16,5 +18,15 @@ export default {
       return (state.currentMonth = payload);
     },
   },
-  actions: {},
+  actions: {
+    async getMonth({ commit }, payload) {
+      try {
+        const data = await MesesService.get(payload);
+        console.log("data", data);
+        commit("setCurrentMonth", data);
+      } catch (error) {
+        console.log("houve um erro");
+      }
+    },
+  },
 };

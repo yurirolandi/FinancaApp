@@ -19,3 +19,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+main.v-main {
+  padding-top: 48px !important;
+}
+</style>
