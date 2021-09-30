@@ -33,7 +33,45 @@
                   <v-col cols="12" sm="6" md="4">
                     <v-text-field v-model="valor" label="Valor"></v-text-field>
                   </v-col>
-                  <DateTime :dateProp.sync="liberationDate" />
+                  <v-col cols="12" sm="6" md="4">
+                    <DateTime :dateProp.sync="liberationDate" />
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-menu
+                      ref="menu"
+                      v-model="menu2"
+                      :close-on-content-click="false"
+                      :nudge-left="15"
+                      :nudge-top="15"
+                      :return-value.sync="time"
+                      transition="scale-transition"
+                      offset-y
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                          v-model="selectParcela"
+                          label="Selecione a parcela"
+                          prepend-icon="mdi-clock-time-four-outline"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-container fluid class="container-background">
+                        <v-row>
+                          <v-col class="d-flex" cols="6" sm="6">
+                            <v-select :items="items" label="Parcela"></v-select>
+                          </v-col>
+                          <v-col class="d-flex" cols="6" sm="6">
+                            <v-select
+                              :items="items"
+                              label="Total Parcela"
+                            ></v-select>
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </v-menu>
+                  </v-col>
                 </v-row>
               </v-container>
             </v-card-text>
@@ -84,7 +122,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import DateTime from "../DateTime/DateTime.vue";
 export default {
   components: {
@@ -93,7 +131,12 @@ export default {
   data: () => ({
     dialog: false,
     dialogDelete: false,
+    selectParcela: null,
     liberationDate: "",
+    items: [
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+      22, 23, 24,
+    ],
     conta: "",
     valor: "",
     headers: [
@@ -139,6 +182,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["adicionarCompras"]),
     editItem(item) {
       this.editedIndex = this.desserts.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -181,8 +225,9 @@ export default {
           conta: this.conta,
           valor: this.valor,
           data: `${day}/${month}/${year}`,
+          id: this.currentMonth.id,
         };
-        this.desserts.push(data);
+        this.adicionarCompras(data);
       }
       this.close();
     },
@@ -190,4 +235,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.container-background {
+  background-color: white;
+}
+</style>

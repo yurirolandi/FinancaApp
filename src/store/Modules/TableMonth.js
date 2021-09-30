@@ -22,7 +22,6 @@ export default {
     async getMonth({ commit }, payload) {
       try {
         const data = await MesesService.get(payload);
-        console.log("data", data);
         commit("setCurrentMonth", data);
       } catch (error) {
         console.log("houve um erro");

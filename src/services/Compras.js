@@ -6,8 +6,8 @@ export const ComprasService = {
 
     return requestAxios.get(url).then((response) => response.data);
   },
-  create: (body) => {
-    const url = "/items/meses/";
+  create: (body, id) => {
+    const url = `/items/meses/${id}`;
 
     return requestAxios.post(url, body).then((response) => response.data);
   },
