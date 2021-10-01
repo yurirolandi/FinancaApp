@@ -1,6 +1,6 @@
 import { requestAxios } from "./axios";
 
-export const ComprasService = {
+export const usersService = {
   get: () => {
     const url = `users/`;
 

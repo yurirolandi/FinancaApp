@@ -4,7 +4,11 @@ export default {
     User: null,
     Token: null,
   },
-  getters: {},
+  getters: {
+    getIsLogin(state) {
+      return state.isLogin;
+    },
+  },
   mutations: {},
   actions: {},
 };

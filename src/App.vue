@@ -20,7 +20,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      login: "isLogin",
+      login: "getIsLogin",
     }),
   },
 };
