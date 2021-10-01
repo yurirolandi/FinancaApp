@@ -51,7 +51,7 @@
                         <v-text-field
                           v-model="selectParcela"
                           label="Selecione a parcela"
-                          prepend-icon="mdi-clock-time-four-outline"
+                          prepend-icon="mdi-division"
                           readonly
                           v-bind="attrs"
                           v-on="on"
@@ -60,10 +60,15 @@
                       <v-container fluid class="container-background">
                         <v-row>
                           <v-col class="d-flex" cols="6" sm="6">
-                            <v-select :items="items" label="Parcela"></v-select>
+                            <v-select
+                              v-model="parcela"
+                              :items="items"
+                              label="Parcela"
+                            ></v-select>
                           </v-col>
                           <v-col class="d-flex" cols="6" sm="6">
                             <v-select
+                              v-model="totalParcela"
                               :items="items"
                               label="Total Parcela"
                             ></v-select>
@@ -133,12 +138,16 @@ export default {
     dialogDelete: false,
     selectParcela: null,
     liberationDate: "",
+    parcela: "",
+    totalParcela: "",
+    menu2: null,
+    conta: "",
+    valor: "",
+    time: "",
     items: [
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
       22, 23, 24,
     ],
-    conta: "",
-    valor: "",
     headers: [
       {
         text: "Conta",
@@ -225,6 +234,8 @@ export default {
           conta: this.conta,
           valor: this.valor,
           data: `${day}/${month}/${year}`,
+          parcelas: this.parcela,
+          total_parcela: this.totalParcela,
           id: this.currentMonth.id,
         };
         this.adicionarCompras(data);
