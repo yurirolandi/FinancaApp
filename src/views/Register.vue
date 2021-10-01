@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "Register",
   components: {},
@@ -68,12 +69,35 @@ export default {
         (v) => !!v || "E-mail é obrigatorio",
         (v) => /.+@.+/.test(v) || "Insira um email valido",
       ],
-      passwordRules: [(p) => !!p ?? "Senha é obrigatória!!!"],
       rules: {
         required: (value) => !!value || "Senha é obrigatório!!!",
       },
       registerNameRules: [(v) => !!v || "Nome é obrigatorio"],
     };
+  },
+  methods: {
+    ...mapActions(["createUsers"]),
+    register() {
+      if (
+        this.$refs.form.validate() === true &&
+        this.registerPassword === this.registerPasswordConfirm
+      ) {
+        try {
+          let user = {
+            nome: this.registerName,
+            email: this.registerEmail,
+            password: this.registerPassword,
+          };
+          this.createUsers(user);
+        } catch (e) {
+          console.error("Houve um error ao fazer o registro", e);
+        }
+      } else {
+        console.log(
+          "Ops... houve um erro ao tentar se registrar, verifique as informações do formulario e tente novamente"
+        );
+      }
+    },
   },
 };
 </script>
