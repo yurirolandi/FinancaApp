@@ -1,14 +1,30 @@
+import axios from "axios";
 export default {
   state: {
-    isLogin: false,
-    User: null,
-    Token: null,
+    isLoggedIn: false,
+    User: localStorage.getItem("User") || {},
+    Token: false,
   },
   getters: {
-    getIsLogin(state) {
-      return state.isLogin;
+    getToken(state) {
+      return state.Token;
+    },
+    getUser(state) {
+      return state.User;
     },
   },
-  mutations: {},
+  mutations: {
+    setUser(state, payload) {
+      state.user = payload;
+      if (payload) {
+        axios.defaults.headers.common.Authorization = `bearer ${state.token}`;
+      } else {
+        delete axios.defaults.headers.common["Authorization"];
+      }
+    },
+    setLogout(state, payload) {
+      return (state.token = payload);
+    },
+  },
   actions: {},
 };
