@@ -24,7 +24,7 @@ export default {
         const data = await MesesService.get(payload);
         commit("setCurrentMonth", data);
       } catch (error) {
-        console.log("houve um erro");
+        console.log("ola mundo");
       }
     },
   },
