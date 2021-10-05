@@ -41,6 +41,7 @@
 
           <v-btn
             :disabled="!valid"
+            @click.stop="register"
             color="success"
             class="mr-4 mt-2"
             data-cy="login-button"
@@ -54,7 +55,8 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapMutations, mapActions } from "vuex";
+import { usersService } from "@/services/Users.js";
 export default {
   name: "Register",
   components: {},
@@ -76,26 +78,35 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["createUsers"]),
-    register() {
+    ...mapActions(["showSnackBar"]),
+    ...mapMutations(["setLoadingFullScreen"]),
+    async register() {
       if (
         this.$refs.form.validate() === true &&
         this.registerPassword === this.registerPasswordConfirm
       ) {
         try {
+          this.setLoadingFullScreen(true);
           let user = {
             nome: this.registerName,
             email: this.registerEmail,
             password: this.registerPassword,
           };
-          this.createUsers(user);
+
+          await usersService.create(user);
+          this.showSnackBar(["Usuário criado com sucesso", "success"]);
+          this.setLoadingFullScreen(false);
         } catch (e) {
           console.error("Houve um error ao fazer o registro", e);
+          this.showSnackBar(["Houve um error ao  criar o usuário", "error"]);
+          this.setLoadingFullScreen(false);
         }
       } else {
-        console.log(
-          "Ops... houve um erro ao tentar se registrar, verifique as informações do formulario e tente novamente"
-        );
+        this.showSnackBar([
+          "Ops... houve um erro ao tentar se registrar, verifique as informações do formulario e tente novamente",
+          "error",
+        ]);
+        this.setLoadingFullScreen(false);
       }
     },
   },
