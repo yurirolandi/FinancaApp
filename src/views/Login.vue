@@ -24,10 +24,10 @@
           ></v-text-field>
 
           <v-btn
+            @click.stop="logar"
             :disabled="!valid"
             color="success"
             class="mr-4 mt-2"
-            data-cy="login-button"
           >
             Logar
           </v-btn>
@@ -45,6 +45,8 @@
 </template>
 
 <script>
+import { mapMutations, mapActions } from "vuex";
+import { usersService } from "@/services/Users.js";
 export default {
   name: "Login",
   components: {},
@@ -63,6 +65,42 @@ export default {
         required: (value) => !!value || "Senha é obrigatório!!!",
       },
     };
+  },
+  methods: {
+    ...mapActions(["showSnackBar"]),
+    ...mapMutations(["setUser", "setLoadingFullScreen"]),
+    async logar() {
+      if (this.$refs.form.validate() === true) {
+        try {
+          this.setLoadingFullScreen(true);
+          const login = await usersService.get(
+            this.email.trim(),
+            this.password.trim()
+          );
+          if (!login) {
+            this.setLoadingFullScreen(false);
+            this.showSnackBar(["Error usuário ou senha inválido", "error"]);
+          }
+          if (login) {
+            let token = {
+              ...login,
+              token: true,
+            };
+            this.setUser(token);
+            this.showSnackBar(["Login efetuado com sucesso", "success"]);
+            this.setLoadingFullScreen(false);
+            this.$router.push({ path: "/" });
+          }
+        } catch (error) {
+          console.error("Houve um error ao fazer Login", error);
+          this.setLoadingFullScreen(false);
+          this.showSnackBar([
+            "Ops, ocorreu um erro ao tentar efetuar o login!",
+            "error",
+          ]);
+        }
+      }
+    },
   },
 };
 </script>
