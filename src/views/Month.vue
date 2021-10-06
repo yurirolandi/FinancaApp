@@ -31,29 +31,40 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapMutations, mapActions } from "vuex";
+import { MesesService } from "@/services/Month";
+
 export default {
   data: () => ({
     meses: [
-      { mes: "JANEIRO", value: 5 },
-      { mes: "FEVEREIRO", value: 6 },
-      { mes: "MARÇO", value: 7 },
-      { mes: "ABRIL", value: 8 },
-      { mes: "MAIO", value: 9 },
-      { mes: "JUNHO", value: 10 },
-      { mes: "JULHO", value: 11 },
-      { mes: "AGOSTO", value: 12 },
-      { mes: "SETEMBRO", value: 13 },
-      { mes: "OUTUBRO", value: 14 },
-      { mes: "NOVEMBRO", value: 15 },
-      { mes: "DEZEMBRO", value: 16 },
+      { mes: "JANEIRO", value: 1 },
+      { mes: "FEVEREIRO", value: 2 },
+      { mes: "MARÇO", value: 3 },
+      { mes: "ABRIL", value: 4 },
+      { mes: "MAIO", value: 5 },
+      { mes: "JUNHO", value: 6 },
+      { mes: "JULHO", value: 7 },
+      { mes: "AGOSTO", value: 8 },
+      { mes: "SETEMBRO", value: 9 },
+      { mes: "OUTUBRO", value: 10 },
+      { mes: "NOVEMBRO", value: 11 },
+      { mes: "DEZEMBRO", value: 12 },
     ],
   }),
   methods: {
-    ...mapActions(["getMonth"]),
-    viewMonth(month) {
-      this.getMonth(month.value);
-      this.$router.push({ path: "month/" + month.nome });
+    ...mapActions(["showSnackBar"]),
+    ...mapMutations(["setCurrentMonth", "setLoadingFullScreen"]),
+    async viewMonth(month) {
+      this.setLoadingFullScreen(true);
+      const data = await MesesService.get(month.value);
+      if (data) {
+        this.setCurrentMonth(data);
+        this.$router.push({ path: "month/" + month.nome });
+        this.setLoadingFullScreen(false);
+      } else {
+        this.setLoadingFullScreen(false);
+        this.showSnackBar(["Ocorreu um erro ao buscar contas.", "error"]);
+      }
     },
   },
 };

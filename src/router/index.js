@@ -54,11 +54,12 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const usuario = localStorage.getItem("User");
+  const usuario = localStorage.getItem("Use");
+  const token = localStorage.getItem("Token");
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     const user = JSON.parse(usuario);
-    user && user.txtRegister ? next() : next({ path: "/Login" });
+    user && token ? next() : next({ path: "/Login" });
   } else {
     next();
   }

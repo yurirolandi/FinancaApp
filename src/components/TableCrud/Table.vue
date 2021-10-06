@@ -38,8 +38,8 @@
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
                     <v-menu
-                      ref="menu"
-                      v-model="menu2"
+                      ref="parcela"
+                      v-model="parcela"
                       :close-on-content-click="false"
                       :nudge-left="15"
                       :nudge-top="15"
@@ -61,15 +61,15 @@
                         <v-row>
                           <v-col class="d-flex" cols="6" sm="6">
                             <v-select
-                              v-model="parcela"
-                              :items="items"
+                              v-model="parcelaqtd"
+                              :items="parcelaItem"
                               label="Parcela"
                             ></v-select>
                           </v-col>
                           <v-col class="d-flex" cols="6" sm="6">
                             <v-select
                               v-model="totalParcela"
-                              :items="items"
+                              :items="totalParcelaItem"
                               label="Total Parcela"
                             ></v-select>
                           </v-col>
@@ -138,13 +138,17 @@ export default {
     dialogDelete: false,
     selectParcela: null,
     liberationDate: "",
-    parcela: "",
     totalParcela: "",
-    menu2: null,
+    parcela: null,
+    parcelaqtd: "",
     conta: "",
     valor: "",
     time: "",
-    items: [
+    totalParcelaItem: [
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+      22, 23, 24,
+    ],
+    parcelaItem: [
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
       22, 23, 24,
     ],
@@ -188,6 +192,10 @@ export default {
     },
     dialogDelete(val) {
       val || this.closeDelete();
+    },
+    parcela: function (val) {
+      this.selectParcela = `${this.parcelaqtd}/${this.totalParcela}`;
+      this.parcela = val;
     },
   },
   methods: {

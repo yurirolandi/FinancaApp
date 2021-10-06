@@ -1,5 +1,4 @@
 import { MesesService } from "../../services/Month";
-
 export default {
   state: {
     currentMonth: "",

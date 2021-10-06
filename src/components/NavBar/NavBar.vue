@@ -6,13 +6,20 @@
     <v-spacer></v-spacer>
     <v-toolbar-title class="user"
       ><span class="user__welcome">Bem vindo,</span>
-      <span class="user__name">Yuri</span>
+      <span class="user__name">{{ users.nome }}</span>
     </v-toolbar-title>
   </v-app-bar>
 </template>
 
 <script>
-export default {};
+import { mapGetters } from "vuex";
+export default {
+  computed: {
+    ...mapGetters({
+      users: "getUser",
+    }),
+  },
+};
 </script>
 
 <style lang="scss" scoped>

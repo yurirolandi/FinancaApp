@@ -1,30 +1,47 @@
 import axios from "axios";
+import { tokenService } from "@/services/Token.js";
+
 export default {
   state: {
     isLoggedIn: false,
-    User: localStorage.getItem("User") || {},
-    Token: false,
+    User: localStorage.getItem("Use") || {},
+    Token: localStorage.getItem("Token") || false,
   },
   getters: {
     getToken(state) {
       return state.Token;
     },
     getUser(state) {
-      return state.User;
+      return JSON.parse(state.User);
     },
   },
   mutations: {
     setUser(state, payload) {
-      state.user = payload;
+      state.User = payload;
       if (payload) {
-        axios.defaults.headers.common.Authorization = `bearer ${state.token}`;
+        axios.defaults.headers.common.Authorization = `Bearer ${state.token}`;
       } else {
         delete axios.defaults.headers.common["Authorization"];
       }
     },
-    setLogout(state, payload) {
-      return (state.token = payload);
+    setToken(state, payload) {
+      return (state.Token = payload);
     },
   },
-  actions: {},
+  actions: {
+    async Token({ commit }, payload) {
+      try {
+        commit("setLoadingFullScreen", true);
+        const data = await tokenService.post(payload);
+        const { token, user } = data;
+        commit("setUser", user);
+        commit("setToken", token);
+        localStorage.setItem("Use", JSON.stringify(user));
+        localStorage.setItem("Token", JSON.stringify(token));
+        commit("setLoadingFullScreen", false);
+      } catch (error) {
+        commit("setLoadingFullScreen", false);
+      }
+    },
+  },
 };

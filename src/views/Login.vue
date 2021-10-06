@@ -1,10 +1,15 @@
 <template>
-  <v-container>
-    <v-card elevation="2" class="mt-5">
-      <v-img src="../assets/img/login.svg" />
+  <div class="login">
+    <v-card elevation="5" min-height="568" min-width="320" max-width="450">
+      <v-img max-width="240" class="img-login" src="../assets/img/login.svg" />
       <h4 class="Subtitle-1 text-center font-weight-medium">Login</h4>
       <v-container>
-        <v-form ref="form" v-model="valid" lazy-validation>
+        <v-form
+          ref="form"
+          class="d-flex flex-column"
+          v-model="valid"
+          lazy-validation
+        >
           <v-text-field
             v-model="email"
             label="E-mail"
@@ -38,15 +43,15 @@
         <h4 class="Subtitle-1 text-center font-weight-medium">
           Ainda não possui uma conta ?
         </h4>
-        <v-btn router to="/register" text color="primary">Criar Conta</v-btn>
+        <v-btn router to="/register" text color="primary">Criar Agora</v-btn>
       </v-container>
     </v-card>
-  </v-container>
+  </div>
 </template>
 
 <script>
 import { mapMutations, mapActions } from "vuex";
-import { usersService } from "@/services/Users.js";
+
 export default {
   name: "Login",
   components: {},
@@ -67,30 +72,21 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["showSnackBar"]),
+    ...mapActions(["showSnackBar", "Token"]),
     ...mapMutations(["setUser", "setLoadingFullScreen"]),
     async logar() {
       if (this.$refs.form.validate() === true) {
         try {
           this.setLoadingFullScreen(true);
-          const login = await usersService.get(
-            this.email.trim(),
-            this.password.trim()
-          );
-          if (!login) {
-            this.setLoadingFullScreen(false);
-            this.showSnackBar(["Error usuário ou senha inválido", "error"]);
-          }
-          if (login) {
-            let token = {
-              ...login,
-              token: true,
-            };
-            this.setUser(token);
-            this.showSnackBar(["Login efetuado com sucesso", "success"]);
-            this.setLoadingFullScreen(false);
-            this.$router.push({ path: "/" });
-          }
+          await this.Token({
+            email: this.email.trim(),
+            password: this.password.trim(),
+          });
+
+          this.password = "";
+          this.email = "";
+          this.$router.push({ path: "/" });
+          this.setLoadingFullScreen(false);
         } catch (error) {
           console.error("Houve um error ao fazer Login", error);
           this.setLoadingFullScreen(false);
@@ -104,3 +100,17 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.login {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .img-login {
+    margin: 0 auto;
+  }
+}
+</style>

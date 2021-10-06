@@ -1,7 +1,11 @@
 <template>
-  <v-container>
-    <v-card elevation="2" class="mt-5">
-      <v-img src="../assets/img/register.svg" />
+  <div class="register">
+    <v-card elevation="2" min-height="568" min-width="320" max-width="450">
+      <v-img
+        max-width="240"
+        class="img-register"
+        src="../assets/img/register.svg"
+      />
       <h4 class="Subtitle-1 text-center font-weight-medium">Registre-se</h4>
       <v-container>
         <v-form ref="form" v-model="valid" lazy-validation>
@@ -44,14 +48,14 @@
             @click.stop="register"
             color="success"
             class="mr-4 mt-2"
-            data-cy="login-button"
+            block
           >
             Cadastrar
           </v-btn>
         </v-form>
       </v-container>
     </v-card>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -95,6 +99,11 @@ export default {
 
           await usersService.create(user);
           this.showSnackBar(["Usuário criado com sucesso", "success"]);
+          this.registerName = "";
+          this.registerEmail = "";
+          this.registerPassword = "";
+          this.registerPasswordConfirm = "";
+          this.$router.push({ path: "/login" });
           this.setLoadingFullScreen(false);
         } catch (e) {
           console.error("Houve um error ao fazer o registro", e);
@@ -112,3 +121,17 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.register {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .img-register {
+    margin: 0 auto;
+  }
+}
+</style>

@@ -1,9 +1,19 @@
 import { ComprasService } from "../../services/Compras";
 
 export default {
-  state: {},
-  getters: {},
-  mutations: {},
+  state: {
+    compras: [],
+  },
+  getters: {
+    getCompras(state) {
+      return state.compras;
+    },
+  },
+  mutations: {
+    setCompras(state, payload) {
+      return (state.compras = payload);
+    },
+  },
   actions: {
     async adicionarCompras({ commit }, payload) {
       try {
@@ -18,6 +28,14 @@ export default {
         );
         console.log("compras", compras);
         commit("setCurrentMonth", data);
+      } catch (error) {
+        console.log("houve um erro");
+      }
+    },
+    async getListaDeCompras({ commit }, payload) {
+      try {
+        const compras = await ComprasService.get(payload);
+        commit("setCompras", compras);
       } catch (error) {
         console.log("houve um erro");
       }
