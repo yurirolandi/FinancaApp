@@ -4,9 +4,9 @@
       elevation="2"
       class="d-flex flex-column justify-center align-center"
     >
-      <v-avatar size="130" rounded>
-        <v-icon size="130"> mdi-account-circle </v-icon>
-      </v-avatar>
+      <h4>Foto de Perfil</h4>
+      <EditFoto />
+
       <v-card-title>
         <span class="text-h6 font-weight-light">{{ users.nome }}</span>
       </v-card-title>
@@ -22,8 +22,13 @@
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
+import EditFoto from "../components/EditFoto/EditFoto.vue";
 export default {
   name: "Account",
+  components: {
+    EditFoto,
+  },
+  data: () => ({}),
   computed: {
     ...mapGetters({
       users: "getUser",

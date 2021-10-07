@@ -29,7 +29,7 @@ export default {
     },
   },
   actions: {
-    async Token({ commit }, payload) {
+    async Token({ commit, dispatch }, payload) {
       try {
         commit("setLoadingFullScreen", true);
         const data = await tokenService.post(payload);
@@ -41,6 +41,7 @@ export default {
         commit("setLoadingFullScreen", false);
       } catch (error) {
         commit("setLoadingFullScreen", false);
+        dispatch("showSnackBar", ["Erro ao pegar o Token", "error"]);
       }
     },
   },

@@ -30,6 +30,14 @@ const routes = [
     },
   },
   {
+    path: "/grafico",
+    name: "Grafico",
+    component: () => import("../views/Graphic.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/month/:id",
     name: "MonthSelected",
     component: () => import("../views/MonthSelected.vue"),

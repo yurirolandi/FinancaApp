@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import Loading from "@/components/common/Loading.vue";
 import Snackbar from "@/components/common/Snackbars.vue";
 import NavBar from "@/components/NavBar/NavBar.vue";
@@ -31,6 +31,12 @@ export default {
       login: "getToken",
       loading: "getLoadingFullScreen",
     }),
+  },
+  methods: {
+    ...mapActions(["getAno"]),
+  },
+  created() {
+    this.getAno(1);
   },
 };
 </script>
