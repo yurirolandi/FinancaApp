@@ -1,6 +1,6 @@
 <template>
   <div class="not-item">
-    <h4>Sem compras.</h4>
+    <h4>R$ 0,00</h4>
   </div>
 </template>
 
