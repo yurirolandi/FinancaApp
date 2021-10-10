@@ -18,12 +18,15 @@ export default {
     },
   },
   actions: {
-    async getMonth({ commit }, payload) {
+    async getMonth({ commit, dispatch }, payload) {
       try {
+        commit("setLoadingFullScreen", true);
         const data = await MesesService.get(payload);
         commit("setCurrentMonth", data);
+        commit("setLoadingFullScreen", false);
       } catch (error) {
-        console.log("ola mundo");
+        commit("setLoadingFullScreen", false);
+        dispatch("showSnackBar", ["Erro ao buscar o ano", "error"]);
       }
     },
   },

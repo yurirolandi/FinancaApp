@@ -4,7 +4,7 @@ import { tokenService } from "@/services/Token.js";
 export default {
   state: {
     isLoggedIn: false,
-    User: localStorage.getItem("Use") || {},
+    User: localStorage.getItem("Use") || null,
     Token: localStorage.getItem("Token") || false,
   },
   getters: {
@@ -12,20 +12,19 @@ export default {
       return state.Token;
     },
     getUser(state) {
-      return JSON.parse(state.User);
+      return state.User ? JSON.parse(state.User) : "";
     },
   },
   mutations: {
     setUser(state, payload) {
       state.User = payload;
-      if (payload) {
-        axios.defaults.headers.common.Authorization = `Bearer ${state.token}`;
-      } else {
-        delete axios.defaults.headers.common["Authorization"];
-      }
+      // else {
+      //   delete axios.defaults.headers.common["Authorization"];
+      // }
     },
     setToken(state, payload) {
-      return (state.Token = payload);
+      state.Token = payload;
+      axios.defaults.headers.common.Authorization = `Bearer ${payload}`;
     },
   },
   actions: {
@@ -34,8 +33,8 @@ export default {
         commit("setLoadingFullScreen", true);
         const data = await tokenService.post(payload);
         const { token, user } = data;
-        commit("setUser", user);
         commit("setToken", token);
+        commit("setUser", user);
         localStorage.setItem("Use", JSON.stringify(user));
         localStorage.setItem("Token", JSON.stringify(token));
         commit("setLoadingFullScreen", false);

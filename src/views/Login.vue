@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <v-card elevation="5" min-height="568" min-width="320" max-width="450">
+    <v-card min-height="568" min-width="320" max-width="450">
       <v-img max-width="240" class="img-login" src="../assets/img/login.svg" />
       <h4 class="Subtitle-1 text-center font-weight-medium">Login</h4>
       <v-container>

@@ -17,13 +17,17 @@
           @change="onChangeFotoUpload"
           label="Avatar"
         ></v-file-input>
-        <v-btn :disabled="!valid" text color="primary"> Alterar </v-btn>
+        <v-btn :disabled="!valid" @click.stop="changeFoto" text color="primary">
+          Alterar
+        </v-btn>
       </v-form>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapMutations, mapActions } from "vuex";
+import { FotosService } from "../../services/Foto";
 export default {
   name: "EditFoto",
   data() {
@@ -40,7 +44,14 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapGetters({
+      usuario: "getUser",
+    }),
+  },
   methods: {
+    ...mapMutations(["setLoadingFullScreen"]),
+    ...mapActions(["showSnackBar"]),
     onChangeFotoUpload(FileFoto) {
       const fotoUrl = URL.createObjectURL(FileFoto);
       this.url = fotoUrl;
@@ -48,6 +59,21 @@ export default {
     },
     editFoto() {
       this.edit = !this.edit;
+    },
+    async changeFoto() {
+      const formData = new FormData();
+      formData.append("usuario_id", this.usuario.id);
+      formData.append("foto", this.foto);
+
+      try {
+        this.setLoadingFullScreen(true);
+        await FotosService.create(formData);
+        this.setLoadingFullScreen(false);
+        this.showSnackBar(["Foto enviada com sucesso!", "success"]);
+      } catch (error) {
+        this.setLoadingFullScreen(false);
+        this.showSnackBar(["Houve um erro ao enviar a foto.", "error"]);
+      }
     },
   },
 };

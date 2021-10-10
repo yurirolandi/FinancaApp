@@ -10,7 +10,7 @@ export default {
         {
           label: "",
           // backgroundColor: ["red", "blue", "green"],
-          data: [200, 180, 300, 500, 900, 600, 550, 320, 150, 850, 866, 200],
+          data: [],
         },
       ],
     },
@@ -19,6 +19,7 @@ export default {
     getCurrentAno(state) {
       state.currentAno.meses.forEach((mes) => {
         state.chartData.labels.push(mes.mes);
+        state.chartData.datasets[0].data.push(mes.total_mes);
         state.chartData.datasets[0].label = state.currentAno.ano;
       });
       return state.chartData;

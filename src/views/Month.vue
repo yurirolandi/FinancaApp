@@ -1,40 +1,52 @@
 <template>
-  <v-container>
-    <v-card elevation="2">
-      <v-card-title class="text-h4"> Meses </v-card-title>
-    </v-card>
-    <v-card elevation="2" class="mt-5">
-      <v-virtual-scroll :items="meses" height="450" item-height="64">
-        <template v-slot:default="{ item }">
-          <v-list-item :key="item.value">
-            <v-list-item-content>
-              <v-list-item-title v-text="item.mes"></v-list-item-title>
-            </v-list-item-content>
+  <div class="month">
+    <NavBar />
+    <v-container>
+      <v-card elevation="2">
+        <v-card-title class="text-h4"> Meses </v-card-title>
+      </v-card>
+      <v-card elevation="2" class="mt-5">
+        <v-virtual-scroll :items="meses" height="450" item-height="64">
+          <template v-slot:default="{ item }">
+            <v-list-item :key="item.value">
+              <v-list-item-content>
+                <v-list-item-title v-text="item.mes"></v-list-item-title>
+              </v-list-item-content>
 
-            <v-list-item-action>
-              <v-btn
-                depressed
-                small
-                @click.stop="viewMonth({ nome: item.mes, value: item.value })"
-              >
-                VER MÊS
-                <v-icon color="orange darken-4" right> mdi-open-in-new </v-icon>
-              </v-btn>
-            </v-list-item-action>
-          </v-list-item>
+              <v-list-item-action>
+                <v-btn
+                  depressed
+                  small
+                  @click.stop="viewMonth({ nome: item.mes, value: item.value })"
+                >
+                  VER MÊS
+                  <v-icon color="orange darken-4" right>
+                    mdi-open-in-new
+                  </v-icon>
+                </v-btn>
+              </v-list-item-action>
+            </v-list-item>
 
-          <v-divider></v-divider>
-        </template>
-      </v-virtual-scroll>
-    </v-card>
-  </v-container>
+            <v-divider></v-divider>
+          </template>
+        </v-virtual-scroll>
+      </v-card>
+    </v-container>
+    <BottomNavigation />
+  </div>
 </template>
 
 <script>
 import { mapMutations, mapActions } from "vuex";
 import { MesesService } from "@/services/Month";
+import NavBar from "@/components/NavBar/NavBar.vue";
+import BottomNavigation from "@/components/BottomNavigation/BottomNavigation";
 
 export default {
+  components: {
+    BottomNavigation,
+    NavBar,
+  },
   data: () => ({
     meses: [
       { mes: "JANEIRO", value: 1 },
@@ -71,6 +83,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.month {
+  width: 100%;
+}
 .v-list-item.v-list-item--link.theme--light {
   border-bottom: 1px solid #e0e0e0;
 }

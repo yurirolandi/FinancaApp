@@ -6,7 +6,7 @@
     <v-spacer></v-spacer>
     <v-toolbar-title class="user"
       ><span class="user__welcome">Bem vindo,</span>
-      <span class="user__name">{{ users.nome }}</span>
+      <span class="user__name">{{ users.nome ? users.nome : "" }}</span>
     </v-toolbar-title>
   </v-app-bar>
 </template>

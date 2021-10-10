@@ -1,18 +1,26 @@
 <template>
-  <v-container>
-    <v-card elevation="2">
-      <v-card-title class="text-h4"> Gráficos </v-card-title>
-    </v-card>
-    <Graphics v-if="hasData" :data="loadChartData" :options="chartOptions" />
-  </v-container>
+  <div class="graphic">
+    <NavBar />
+    <v-container>
+      <v-card elevation="2">
+        <v-card-title class="text-h4"> Gráficos </v-card-title>
+      </v-card>
+      <Graphics v-if="hasData" :data="loadChartData" :options="chartOptions" />
+    </v-container>
+    <BottomNavigation />
+  </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import Graphics from "../plugins/PieChart";
+import NavBar from "@/components/NavBar/NavBar.vue";
+import BottomNavigation from "@/components/BottomNavigation/BottomNavigation";
 export default {
   components: {
     Graphics,
+    BottomNavigation,
+    NavBar,
   },
   computed: {
     ...mapGetters({
@@ -30,7 +38,17 @@ export default {
       maintainAspectRatio: false,
     },
   }),
+  methods: {
+    ...mapActions(["getAno"]),
+  },
+  mounted() {
+    this.getAno(1);
+  },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.graphic {
+  width: 100%;
+}
+</style>
