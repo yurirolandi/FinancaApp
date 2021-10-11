@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import CurrentExpense from "../components/CurrentExpense/Panel.vue";
+import CurrentExpense from "@/components/CurrentExpense/Panel.vue";
 import NavBar from "@/components/NavBar/NavBar.vue";
 import BottomNavigation from "@/components/BottomNavigation/BottomNavigation";
 export default {
