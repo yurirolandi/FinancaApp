@@ -13,11 +13,10 @@ export const ComprasService = {
   update: (body, id) => {
     const url = `/items/${id}/mes`;
 
-    return requestAxios.post(url, body).then((response) => response.data);
+    return requestAxios.put(url, body).then((response) => response.data);
   },
-  delete: (body, id) => {
-    const url = `/items/${id}/mes`;
-
-    return requestAxios.post(url, body).then((response) => response.data);
+  delete: (id) => {
+    const url = `/items/${id}/mes/`;
+    return requestAxios.delete(url).then((response) => response.data);
   },
 };

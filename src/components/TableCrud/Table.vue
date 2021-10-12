@@ -13,7 +13,7 @@
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-              Novo Item
+              {{ modalTitle }}
             </v-btn>
           </template>
           <v-card>
@@ -84,7 +84,16 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red darken-1" text @click="close"> Cancelar </v-btn>
-              <v-btn color="primary darken-1" @click="save"> Salvar </v-btn>
+              <v-btn
+                color="primary darken-1"
+                v-if="modalTitle === 'Novo Item'"
+                @click="save"
+              >
+                Salvar
+              </v-btn>
+              <v-btn color="primary darken-1" v-else @click="editar">
+                Editar
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -111,8 +120,7 @@
     <template v-slot:[`item.actions`]="{ item }">
       <v-icon
         size="20"
-        color="orange darken-2
-"
+        color="orange darken-2"
         class="mr-3"
         @click="editItem(item)"
       >
@@ -135,12 +143,14 @@ export default {
   },
   data: () => ({
     dialog: false,
+    modalTitle: "Novo Item",
+    itemId: null,
     dialogDelete: false,
     selectParcela: null,
     liberationDate: "",
-    totalParcela: "",
+    totalParcela: "01",
     parcela: null,
-    parcelaqtd: "",
+    parcelaqtd: "01",
     conta: "",
     valor: "",
     time: "",
@@ -201,10 +211,17 @@ export default {
         text: "Conta",
         align: "start",
         sortable: false,
-        value: "conta",
+        value: "nome",
       },
       { text: "Valor", value: "valor", align: "start", sortable: false },
-      { text: "Data", value: "data", align: "start", sortable: false },
+      { text: "Data", value: "dia", align: "start", sortable: false },
+      { text: "Parcela", value: "parcela", align: "start", sortable: false },
+      {
+        text: "Total parcela",
+        value: "total_parcela",
+        align: "start",
+        sortable: false,
+      },
       { text: "Ação", value: "actions", align: "start", sortable: false },
     ],
     desserts: [],
@@ -243,38 +260,59 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["adicionarCompras"]),
+    ...mapActions(["adicionarCompras", "editCompra", "deleteCompra"]),
     editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
+      this.modalTitle = "Editar Item";
+      const { dia, nome, parcela, total_parcela, valor } = item;
+      const [day, month, year] = dia.split("/");
+      this.conta = nome;
+      this.valor = valor;
+      this.parcelaqtd = parcela;
+      this.totalParcela = total_parcela;
+      this.liberationDate = `${year}-${month}-${day}`;
       this.dialog = true;
+    },
+    editar() {
+      const [year, month, day] = this.liberationDate.split("-");
+      const data = {
+        nome: this.conta,
+        valor: this.valor,
+        dia: `${day}/${month}/${year}`,
+        parcela: this.parcelaqtd,
+        total_parcela: this.totalParcela,
+        id: this.currentMonth.id,
+      };
+      this.editCompra(data);
+      this.dialog = false;
     },
 
     deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
+      const { dia, nome, parcela, total_parcela, valor, id } = item;
+      const [day, month, year] = dia.split("/");
+      console.log("item", item);
+      this.conta = nome;
+      this.valor = valor;
+      this.parcelaqtd = parcela;
+      this.totalParcela = total_parcela;
+      this.liberationDate = `${year}-${month}-${day}`;
+      this.dialog = true;
       this.dialogDelete = true;
+      this.itemId = id;
     },
 
     deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1);
+      console.log("this.itemId", this.itemId);
+      this.deleteCompra(this.itemId);
       this.closeDelete();
+      this.dialog = false;
     },
 
     close() {
       this.dialog = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
     },
 
     closeDelete() {
       this.dialogDelete = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
     },
 
     save() {
