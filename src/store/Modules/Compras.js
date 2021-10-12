@@ -17,17 +17,17 @@ export default {
   actions: {
     async adicionarCompras({ commit }, payload) {
       try {
-        const { conta, valor, data, id } = payload;
-        const compras = await ComprasService.create(
-          {
-            conta,
-            valor,
-            data,
-          },
-          id
-        );
+        const { conta, valor, data, id, parcelas, total_parcela } = payload;
+        const novaCompra = {
+          conta: conta,
+          valor: valor,
+          data: data,
+          parcela: parcelas,
+          total_parcela: total_parcela,
+        };
+        const compras = await ComprasService.create(novaCompra, id);
         console.log("compras", compras);
-        commit("setCurrentMonth", data);
+        commit("setCompras", data);
       } catch (error) {
         console.log("houve um erro");
       }
