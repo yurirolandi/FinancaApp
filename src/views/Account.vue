@@ -11,12 +11,12 @@
 
         <v-card-title>
           <span class="text-h6 font-weight-light">{{
-            users.nome ? users.nome : ""
+            users.nome !== null ? users.nome : ""
           }}</span>
         </v-card-title>
         <v-list-item-subtitle>
           <span class="text-h6 font-weight-light">{{
-            users.email ? users.email : ""
+            users.email !== null ? users.email : ""
           }}</span>
         </v-list-item-subtitle>
         <v-card-actions>
@@ -46,13 +46,12 @@ export default {
     }),
   },
   methods: {
-    ...mapMutations(["setUser", "setToken", "setLoadingFullScreen"]),
+    ...mapMutations(["setUser", "setLoadingFullScreen"]),
     logout() {
       this.setLoadingFullScreen(true);
+      this.setUser(null);
       localStorage.removeItem("Use");
       localStorage.removeItem("Token");
-      this.setUser(null);
-      this.setToken(null);
       this.$router.push({ path: "/Login" });
       this.setLoadingFullScreen(false);
     },

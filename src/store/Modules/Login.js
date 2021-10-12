@@ -4,15 +4,17 @@ import { tokenService } from "@/services/Token.js";
 export default {
   state: {
     isLoggedIn: false,
-    User: localStorage.getItem("Use") || null,
-    Token: localStorage.getItem("Token") || false,
+    User: null,
+    Token: false,
   },
   getters: {
     getToken(state) {
-      return state.Token;
+      let local = localStorage.getItem("Token");
+      return local ? JSON.parse(local) : state.state.Token;
     },
     getUser(state) {
-      return state.User ? JSON.parse(state.User) : "";
+      let local = localStorage.getItem("Use");
+      return local ? JSON.parse(local) : state.User;
     },
   },
   mutations: {
