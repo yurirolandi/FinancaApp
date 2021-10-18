@@ -1,28 +1,37 @@
 import { MesesService } from "../../services/Month";
 export default {
   state: {
-    currentMonth: "",
-    currentItems: [],
+    currentMonth: [],
+    valueTotal: 0,
   },
   getters: {
     getCurrentMonth(state) {
       return state.currentMonth;
     },
-    getCurrentItems(state) {
-      return state.currentItems;
+    getFilterValue(state) {
+      const reducer = (previousValue, currentValue) =>
+        previousValue + currentValue;
+      return state.valueTotal.length
+        ? state.valueTotal.reduce(reducer)
+        : state.valueTotal;
     },
   },
   mutations: {
     setCurrentMonth(state, payload) {
       return (state.currentMonth = payload);
     },
+    setValueTotal(state, payload) {
+      return (state.valueTotal = payload);
+    },
   },
   actions: {
-    async getMonth({ commit, dispatch }, payload) {
+    async refreshMonth({ commit, dispatch }, payload) {
       try {
         commit("setLoadingFullScreen", true);
         const data = await MesesService.get(payload);
+        let valorTotal = data.compras.map((compra) => compra.valor);
         commit("setCurrentMonth", data);
+        commit("setValueTotal", valorTotal);
         commit("setLoadingFullScreen", false);
       } catch (error) {
         commit("setLoadingFullScreen", false);

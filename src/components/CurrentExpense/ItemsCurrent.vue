@@ -1,18 +1,18 @@
 <template>
-  <v-virtual-scroll :items="items" height="350" item-height="64">
+  <v-virtual-scroll :items="items.compras" height="350" item-height="64">
     <template v-slot:default="{ item }">
-      <v-list-item :key="item">
+      <v-list-item :key="item.id">
         <v-list-item-action>
-          <v-btn fab small depressed color="primary">
-            {{ item }}
-          </v-btn>
+          {{ item.parcela }}/{{ item.total_parcela }}
         </v-list-item-action>
 
         <v-list-item-content>
           <v-list-item-title>
-            Compras <strong>Valor R$ {{ item }}</strong>
+            <strong> {{ item.nome }}</strong>
           </v-list-item-title>
         </v-list-item-content>
+
+        <v-list-item-action> R$ {{ item.valor }} </v-list-item-action>
       </v-list-item>
 
       <v-divider></v-divider>
@@ -23,14 +23,7 @@
 <script>
 export default {
   name: "ItemsCurrent",
-  computed: {
-    items() {
-      return Array.from({ length: this.length }, (k, v) => v + 1);
-    },
-    length() {
-      return 7000;
-    },
-  },
+  props: ["items"],
 };
 </script>
 

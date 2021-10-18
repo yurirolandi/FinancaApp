@@ -1,11 +1,11 @@
 <template>
   <div class="edit-foto">
     <div class="edit-foto__box">
-      <v-avatar size="130" rounded>
-        <v-img v-if="foto" :src="url" alt="tetse" />
-        <v-icon v-else size="130"> mdi-account-circle </v-icon>
+      <v-avatar size="100" rounded>
+        <v-img v-if="foto" :src="url" alt="teste" />
+        <v-icon v-else size="100"> mdi-account-circle </v-icon>
       </v-avatar>
-      <v-icon @click="editFoto" size="26"> mdi-image-edit </v-icon>
+      <v-icon class="edit" @click="editFoto" size="26"> mdi-image-edit </v-icon>
     </div>
     <div class="edit-foto__container" v-if="edit">
       <v-form ref="form" class="edit-form" v-model="valid" lazy-validation>
@@ -88,6 +88,11 @@ export default {
   &__box {
     display: flex;
     align-items: baseline;
+    .edit {
+      position: relative;
+      top: 10px;
+      right: 15px;
+    }
   }
   &__container {
     display: flex;

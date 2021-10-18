@@ -112,5 +112,8 @@ export default {
   .img-login {
     margin: 0 auto;
   }
+  > .v-sheet.v-card:not(.v-sheet--outlined) {
+    box-shadow: none;
+  }
 }
 </style>

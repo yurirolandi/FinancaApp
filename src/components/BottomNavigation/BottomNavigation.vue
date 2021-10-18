@@ -1,5 +1,5 @@
 <template>
-  <v-bottom-navigation v-model="value" shift fixed>
+  <v-bottom-navigation active-class="btn_active" v-model="value" shift fixed>
     <v-btn v-for="(item, index) in items" :key="index" router :to="item.route">
       <span>{{ item.title }}</span>
 
@@ -26,11 +26,14 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .v-btn:not(.v-btn--round).v-size--default {
   height: 56px;
   min-width: 64px;
   width: 100%;
   padding: 0 16px;
+}
+.btn_active {
+  color: #6200ea !important;
 }
 </style>

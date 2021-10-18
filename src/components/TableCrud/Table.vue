@@ -50,7 +50,7 @@
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
                           v-model="selectParcela"
-                          label="Selecione a parcela"
+                          :label="labelParcela"
                           prepend-icon="mdi-division"
                           readonly
                           v-bind="attrs"
@@ -83,10 +83,21 @@
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="red darken-1" text @click="close"> Cancelar </v-btn>
+              <v-btn
+                color="red darken-1"
+                v-model="dialogDelete"
+                v-if="delet"
+                text
+                @click="deleteItemConfirm"
+              >
+                Excluir
+              </v-btn>
+              <v-btn color="teal lighten-2" text @click="close">
+                Cancelar
+              </v-btn>
               <v-btn
                 color="primary darken-1"
-                v-if="modalTitle === 'Novo Item'"
+                v-if="modalTitle == 'Novo Item'"
                 @click="save"
               >
                 Salvar
@@ -94,24 +105,6 @@
               <v-btn color="primary darken-1" v-else @click="editar">
                 Editar
               </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-
-        <v-dialog v-model="dialogDelete" max-width="500px">
-          <v-card>
-            <v-card-title class="text-h5"
-              >Deseja deletar o item ?
-            </v-card-title>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete"
-                >Cancel</v-btn
-              >
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                >OK</v-btn
-              >
-              <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -144,12 +137,14 @@ export default {
   data: () => ({
     dialog: false,
     modalTitle: "Novo Item",
+    labelParcela: "Selecione a parcela",
     itemId: null,
     dialogDelete: false,
     selectParcela: null,
     liberationDate: "",
     totalParcela: "01",
     parcela: null,
+    delet: false,
     parcelaqtd: "01",
     conta: "",
     valor: "",
@@ -260,7 +255,12 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["adicionarCompras", "editCompra", "deleteCompra"]),
+    ...mapActions([
+      "adicionarCompras",
+      "editCompra",
+      "deleteCompra",
+      "refreshMonth",
+    ]),
     editItem(item) {
       this.modalTitle = "Editar Item";
       const { dia, nome, parcela, total_parcela, valor } = item;
@@ -270,6 +270,7 @@ export default {
       this.parcelaqtd = parcela;
       this.totalParcela = total_parcela;
       this.liberationDate = `${year}-${month}-${day}`;
+      this.labelParcela = `${parcela}/${total_parcela}`;
       this.dialog = true;
     },
     editar() {
@@ -283,35 +284,61 @@ export default {
         id: this.currentMonth.id,
       };
       this.editCompra(data);
+      this.refreshMonth(this.currentMonth.id);
+      this.labelParcela = "Selecione a parcela";
       this.dialog = false;
     },
 
     deleteItem(item) {
       const { dia, nome, parcela, total_parcela, valor, id } = item;
       const [day, month, year] = dia.split("/");
-      console.log("item", item);
       this.conta = nome;
       this.valor = valor;
       this.parcelaqtd = parcela;
       this.totalParcela = total_parcela;
       this.liberationDate = `${year}-${month}-${day}`;
+      this.labelParcela = `${parcela}/${total_parcela}`;
       this.dialog = true;
       this.dialogDelete = true;
       this.itemId = id;
+      this.delet = true;
+      this.modalTitle = "Excluir";
     },
 
     deleteItemConfirm() {
-      console.log("this.itemId", this.itemId);
-      this.deleteCompra(this.itemId);
+      let payload = {
+        id: this.currentMonth.id,
+        itemId: this.itemId,
+      };
+      this.deleteCompra(payload);
+      this.labelParcela = "Selecione a parcela";
+      this.modalTitle = "Novo Item";
       this.closeDelete();
+      this.delet = false;
       this.dialog = false;
     },
 
     close() {
+      this.conta = "";
+      this.valor = "";
+      this.parcelaqtd = "01";
+      this.totalParcela = "01";
+      this.liberationDate = "";
+      this.labelParcela = `Selecione a parcela`;
+      this.modalTitle = "Novo Item";
       this.dialog = false;
+      this.delet = false;
     },
 
     closeDelete() {
+      this.conta = "";
+      this.valor = "";
+      this.parcelaqtd = "01";
+      this.totalParcela = "01";
+      this.liberationDate = "";
+      this.labelParcela = `Selecione a parcela`;
+      this.modalTitle = "Novo Item";
+      this.delet = false;
       this.dialogDelete = false;
     },
 
@@ -336,8 +363,15 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .container-background {
   background-color: white;
+}
+.v-data-table__mobile-row {
+  border-bottom: 1px solid #cecece;
+  &:last-child {
+    border-bottom: none !important;
+    margin-bottom: 3.5rem !important;
+  }
 }
 </style>

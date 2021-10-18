@@ -1,5 +1,4 @@
 import { ComprasService } from "../../services/Compras";
-import { MesesService } from "@/services/Month";
 
 export default {
   state: {
@@ -16,8 +15,9 @@ export default {
     },
   },
   actions: {
-    async adicionarCompras({ commit }, payload) {
+    async adicionarCompras({ commit, dispatch }, payload) {
       try {
+        commit("setLoadingFullScreen", true);
         const { conta, valor, data, id, parcelas, total_parcela } = payload;
         const novaCompra = {
           nome: conta,
@@ -27,29 +27,14 @@ export default {
           total_parcela: total_parcela,
         };
         const compras = await ComprasService.create(novaCompra, id);
-        console.log("compras", compras);
-        commit("setCompras", data);
-      } catch (error) {
-        console.log("houve um erro");
-      }
-    },
-    async getListaDeCompras({ commit, dispatch }, payload) {
-      try {
-        commit("setLoadingFullScreen", true);
-        const data = await MesesService.get(payload);
-        if (data) {
-          dispatch("setCurrentMonth", data);
-        }
+        commit("setCompras", compras);
+        dispatch("refreshMonth", id);
         commit("setLoadingFullScreen", false);
       } catch (error) {
         commit("setLoadingFullScreen", false);
-        dispatch("showSnackBar", [
-          "Erro ao atualizar lista de compra",
-          "error",
-        ]);
+        dispatch("showSnackBar", ["Erro ao criar lista de compra", "error"]);
       }
     },
-
     async editCompra({ commit, dispatch }, payload) {
       try {
         commit("setLoadingFullScreen", true);
@@ -61,11 +46,9 @@ export default {
           parcela: parcela,
           total_parcela: total_parcela,
         };
-        console.log("compraEditada", compraEditada);
         const compra = await ComprasService.update(compraEditada, id);
-        console.log("compra", compra);
         commit("setCompras", compra);
-        dispatch("getListaDeCompras", id);
+        dispatch("refreshMonth", id);
         commit("setLoadingFullScreen", false);
       } catch (error) {
         commit("setLoadingFullScreen", false);
@@ -74,11 +57,11 @@ export default {
     },
     async deleteCompra({ commit, dispatch }, payload) {
       try {
-        console.log("delete", payload);
+        let { id, itemId } = payload;
         commit("setLoadingFullScreen", true);
-        const compraDeletada = await ComprasService.delete(payload);
+        const compraDeletada = await ComprasService.delete(itemId);
         commit("setCompras", compraDeletada);
-        dispatch("getListaDeCompras", payload);
+        dispatch("refreshMonth", id);
         commit("setLoadingFullScreen", false);
       } catch (error) {
         commit("setLoadingFullScreen", false);
