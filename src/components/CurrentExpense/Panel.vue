@@ -2,13 +2,13 @@
   <div class="panel">
     <h2 class="pa-2">Gastos do mês de {{ compra ? compra.mes : "" }}</h2>
     <div class="mt-3">
-      <ListItem nome="Compras" valor="valor">
+      <ListItem v-if="compra" nome="Compras" valor="valor">
         <template v-slot:item> Parcelas </template>
       </ListItem>
       <ItemsCurrent v-if="compra" :items.sync="compra" />
       <NotItemCurrent v-else />
     </div>
-    <div>
+    <div v-if="compra">
       <v-divider></v-divider>
       <ListItem nome="Total" :valor="'R$ ' + total">
         <template v-slot:item>

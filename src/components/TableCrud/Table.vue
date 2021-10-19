@@ -31,7 +31,11 @@
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="valor" label="Valor"></v-text-field>
+                    <v-text-field
+                      type="number"
+                      v-model="valor"
+                      label="Valor"
+                    ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
                     <DateTime :dateProp.sync="liberationDate" />
@@ -363,7 +367,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .container-background {
   background-color: white;
 }

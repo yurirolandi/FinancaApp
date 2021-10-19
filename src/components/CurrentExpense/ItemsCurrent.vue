@@ -1,5 +1,10 @@
 <template>
-  <v-virtual-scroll :items="items.compras" height="350" item-height="64">
+  <v-virtual-scroll
+    :items="items.compras"
+    class="virtual-scroll"
+    min-height="9rem"
+    item-height="50"
+  >
     <template v-slot:default="{ item }">
       <v-list-item :key="item.id">
         <v-list-item-action>
@@ -27,4 +32,19 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import "@/styles/Responsive.scss";
+.virtual-scroll {
+  @include breakpoint("sm") {
+    min-height: 15rem !important;
+  }
+
+  @include breakpoint("md") {
+    min-height: 18rem !important;
+  }
+
+  @include breakpoint("mg") {
+    min-height: 30rem !important;
+  }
+}
+</style>

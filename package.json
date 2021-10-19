@@ -12,6 +12,7 @@
     "@capacitor/android": "2.4.7",
     "@capacitor/cli": "^2.4.7",
     "@capacitor/core": "^2.4.7",
+    "@capacitor/ios": "^3.2.5",
     "chart.js": "2",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
