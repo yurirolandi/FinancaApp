@@ -5,7 +5,16 @@
       <v-card elevation="2">
         <v-card-title class="text-h4"> Meses </v-card-title>
       </v-card>
-      <v-card elevation="2" class="mt-5">
+      <v-select
+        class="mt-5"
+        :items="anoSelect"
+        label="Selecione o ano"
+        item-text="ano"
+        item-value="ano"
+        v-model="anoSelected"
+        solo
+      ></v-select>
+      <v-card elevation="2">
         <v-virtual-scroll :items="meses" height="450" item-height="64">
           <template v-slot:default="{ item }">
             <v-list-item :key="item.value">
@@ -46,6 +55,7 @@ export default {
     NavBar,
   },
   data: () => ({
+    anoSelected: "2021",
     meses: [
       { mes: "JANEIRO", value: 1 },
       { mes: "FEVEREIRO", value: 2 },
@@ -60,14 +70,31 @@ export default {
       { mes: "NOVEMBRO", value: 11 },
       { mes: "DEZEMBRO", value: 12 },
     ],
+    anoSelect: [
+      {
+        ano: "2021",
+        value: 1,
+      },
+      {
+        ano: "2022",
+        value: 2,
+      },
+      {
+        ano: "2023",
+        value: 3,
+      },
+      {
+        ano: "2024",
+        value: 4,
+      },
+    ],
   }),
   methods: {
     ...mapActions(["showSnackBar"]),
     ...mapMutations(["setCurrentMonth", "setLoadingFullScreen"]),
     async viewMonth(month) {
       this.setLoadingFullScreen(true);
-      let date = new Date();
-      let newValue = `${month.value}${date.getFullYear()}`;
+      let newValue = `${month.value}${this.anoSelected}`;
       const data = await MesesService.get(newValue);
       if (data) {
         this.setCurrentMonth(data);
