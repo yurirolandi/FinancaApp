@@ -1,8 +1,7 @@
 <template>
   <v-bottom-navigation
     id="bottom-navigation"
-    active-class="btn_active"
-    v-model="value"
+    active-class="btn_active primary"
     shift
     fixed
   >
@@ -17,7 +16,6 @@
 <script>
 export default {
   data: () => ({
-    value: "Home",
     items: [
       { title: "Home", icon: "$home", route: "/" },
       {
@@ -41,7 +39,7 @@ export default {
     padding: 0 16px;
   }
   .btn_active {
-    color: #6200ea !important;
+    color: #fff !important;
   }
 }
 </style>
