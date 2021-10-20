@@ -20,9 +20,7 @@
                   @click.stop="viewMonth({ nome: item.mes, value: item.value })"
                 >
                   VER MÊS
-                  <v-icon color="orange darken-4" right>
-                    mdi-open-in-new
-                  </v-icon>
+                  <v-icon color="orange darken-4" right> $openWindow </v-icon>
                 </v-btn>
               </v-list-item-action>
             </v-list-item>
@@ -68,7 +66,9 @@ export default {
     ...mapMutations(["setCurrentMonth", "setLoadingFullScreen"]),
     async viewMonth(month) {
       this.setLoadingFullScreen(true);
-      const data = await MesesService.get(month.value);
+      let date = new Date();
+      let newValue = `${month.value}${date.getFullYear()}`;
+      const data = await MesesService.get(newValue);
       if (data) {
         this.setCurrentMonth(data);
         this.$router.push({ path: "month/" + month.nome });

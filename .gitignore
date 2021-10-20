@@ -25,3 +25,5 @@ pnpm-debug.log*
 *.sln
 *.sw?
 .env
+android
+ios

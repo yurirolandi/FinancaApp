@@ -6,8 +6,8 @@
         elevation="2"
         class="d-flex flex-column justify-center align-center"
       >
-        <h4>Foto de Perfil</h4>
-        <EditFoto />
+        <!-- <h4>Foto de Perfil</h4> -->
+        <!-- <EditFoto /> -->
 
         <v-card-title>
           <span class="text-h6 font-weight-light">{{
@@ -30,13 +30,13 @@
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
-import EditFoto from "@/components/EditFoto/EditFoto.vue";
+// import EditFoto from "@/components/EditFoto/EditFoto.vue";
 import NavBar from "@/components/NavBar/NavBar.vue";
 import BottomNavigation from "@/components/BottomNavigation/BottomNavigation";
 export default {
   name: "Account",
   components: {
-    EditFoto,
+    // EditFoto,
     BottomNavigation,
     NavBar,
   },

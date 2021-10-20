@@ -41,45 +41,11 @@
                     <DateTime :dateProp.sync="liberationDate" />
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-menu
-                      ref="parcela"
-                      v-model="parcela"
-                      :close-on-content-click="false"
-                      :nudge-left="15"
-                      :nudge-top="15"
-                      :return-value.sync="time"
-                      transition="scale-transition"
-                      offset-y
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                          v-model="selectParcela"
-                          :label="labelParcela"
-                          prepend-icon="mdi-division"
-                          readonly
-                          v-bind="attrs"
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-container fluid class="container-background">
-                        <v-row>
-                          <v-col class="d-flex" cols="6" sm="6">
-                            <v-select
-                              v-model="parcelaqtd"
-                              :items="parcelaItem"
-                              label="Parcela"
-                            ></v-select>
-                          </v-col>
-                          <v-col class="d-flex" cols="6" sm="6">
-                            <v-select
-                              v-model="totalParcela"
-                              :items="totalParcelaItem"
-                              label="Total Parcela"
-                            ></v-select>
-                          </v-col>
-                        </v-row>
-                      </v-container>
-                    </v-menu>
+                    <v-select
+                      v-model="totalParcela"
+                      :items="totalParcelaItem"
+                      label="Total Parcela"
+                    ></v-select>
                   </v-col>
                 </v-row>
               </v-container>
@@ -121,11 +87,9 @@
         class="mr-3"
         @click="editItem(item)"
       >
-        mdi-pencil
+        $edit
       </v-icon>
-      <v-icon size="20" color="red" @click="deleteItem(item)">
-        mdi-delete
-      </v-icon>
+      <v-icon size="20" color="red" @click="deleteItem(item)"> $delete </v-icon>
     </template>
     <template v-slot:no-data> <h2>Sem registro !!!</h2> </template>
   </v-data-table>

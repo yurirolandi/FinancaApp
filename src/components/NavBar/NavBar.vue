@@ -1,7 +1,9 @@
 <template>
-  <v-app-bar color="deep-purple accent-4" dense dark fixed>
-    <v-avatar color="blue" size="38">
-      <span class="white--text text-h6">YR</span>
+  <v-app-bar color="primary" dense dark fixed>
+    <v-avatar color="secondary" size="38">
+      <span class="white--text text-h6">
+        {{ setInitialName }}
+      </span>
     </v-avatar>
     <v-spacer></v-spacer>
     <v-toolbar-title class="user"
@@ -20,6 +22,15 @@ export default {
     ...mapGetters({
       users: "getUser",
     }),
+    setInitialName() {
+      let nameStore = this.users.nome;
+      if (!nameStore) return "SN";
+      let firstName = nameStore.split(" ")[0][0];
+      let lastName = nameStore.split(" ")[2][0]
+        ? nameStore.split(" ")[2][0]
+        : "";
+      return `${firstName}${lastName}`;
+    },
   },
 };
 </script>

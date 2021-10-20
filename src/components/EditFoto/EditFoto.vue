@@ -3,7 +3,7 @@
     <div class="edit-foto__box">
       <v-avatar size="100" rounded>
         <v-img v-if="foto" :src="url" alt="teste" />
-        <v-icon v-else size="100"> mdi-account-circle </v-icon>
+        <v-icon v-else size="100"> $accountCircle </v-icon>
       </v-avatar>
       <v-icon class="edit" @click="editFoto" size="26"> mdi-image-edit </v-icon>
     </div>

@@ -19,14 +19,14 @@ export default {
   data: () => ({
     value: "Home",
     items: [
-      { title: "Home", icon: "mdi-home", route: "/" },
+      { title: "Home", icon: "$home", route: "/" },
       {
         title: "Balanço",
-        icon: "mdi-chart-histogram",
+        icon: "$chart",
         route: "/grafico",
       },
-      { title: "Meses", icon: "mdi-calendar-month", route: "/month" },
-      { title: "Perfil", icon: "mdi-account", route: "account" },
+      { title: "Meses", icon: "$calendar", route: "/month" },
+      { title: "Perfil", icon: "$account", route: "account" },
     ],
   }),
 };
