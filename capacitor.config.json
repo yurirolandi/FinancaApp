@@ -1,6 +1,6 @@
 {
   "appId": "yurirolandi.com.br",
-  "appName": "financa-app",
+  "appName": "Finança",
   "bundledWebRuntime": false,
   "npmClient": "yarn",
   "webDir": "dist",
