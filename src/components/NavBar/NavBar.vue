@@ -26,10 +26,7 @@ export default {
       let nameStore = this.users.nome;
       if (!nameStore) return "SN";
       let firstName = nameStore.split(" ")[0][0];
-      let lastName = nameStore.split(" ")[2][0]
-        ? nameStore.split(" ")[2][0]
-        : "";
-      return `${firstName}${lastName}`;
+      return `${firstName}`;
     },
   },
 };
