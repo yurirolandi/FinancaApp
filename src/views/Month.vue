@@ -1,7 +1,7 @@
 <template>
   <div class="month">
     <NavBar />
-    <v-container>
+    <v-container class="month-box">
       <v-card elevation="2">
         <v-card-title class="text-h4"> Meses </v-card-title>
       </v-card>
@@ -112,6 +112,9 @@ export default {
 <style lang="scss" scoped>
 .month {
   width: 100%;
+  &-box {
+    padding-bottom: 80px;
+  }
 }
 .v-list-item.v-list-item--link.theme--light {
   border-bottom: 1px solid #e0e0e0;
