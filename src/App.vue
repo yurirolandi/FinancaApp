@@ -32,15 +32,26 @@ export default {
 
 <style lang="scss">
 @import "@/styles/Base.scss";
+@import "@/styles/Responsive.scss";
+
 #financa {
+  background-color: #6200ea;
+
   .financa-container {
     height: 100vh;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    padding-top: 48px;
-    align-items: center;
+    padding-top: 60px;
     background: #eceff1;
+    margin: 0 auto;
+    max-width: 1200px;
+    overflow: hidden;
+    position: relative;
+    transition: margin 0.2s ease-in-out;
+
+    @include breakpoint("lg") {
+      border-radius: 24px;
+      margin: 32px auto;
+    }
   }
 }
 </style>

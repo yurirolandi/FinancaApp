@@ -6,11 +6,14 @@
         <v-card-title class="text-h4"> Gráficos </v-card-title>
       </v-card>
       <v-card elevation="2" class="mt-5">
-        <Graphics
-          v-if="hasData"
-          :data="loadChartData"
-          :options="chartOptions"
-        />
+        <div class="small">
+          <Graphics
+            class="teste"
+            v-if="hasData"
+            :data="loadChartData"
+            :options="chartOptions"
+          />
+        </div>
       </v-card>
     </v-container>
     <BottomNavigation />
@@ -56,5 +59,10 @@ export default {
 <style lang="scss" scoped>
 .graphic {
   width: 100%;
+  overflow-y: auto;
+  height: 100vh;
+  .small {
+    max-width: 1100px;
+  }
 }
 </style>

@@ -112,8 +112,11 @@ export default {
 <style lang="scss" scoped>
 .month {
   width: 100%;
+  overflow-y: auto;
+  height: 100vh;
+
   &-box {
-    padding-bottom: 80px;
+    padding-bottom: 150px;
   }
 }
 .v-list-item.v-list-item--link.theme--light {

@@ -23,6 +23,12 @@
     }
   }
 
+  @else if $class == lg {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  }
+
   @else {
     @warn "Breakpoint mixin supports, sm, md, mg";
   }

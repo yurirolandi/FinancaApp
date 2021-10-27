@@ -130,6 +130,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow-y: auto;
   .img-register {
     margin: 0 auto;
   }

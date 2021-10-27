@@ -30,5 +30,7 @@ export default {
 <style lang="scss" scoped>
 .home {
   width: 100%;
+  overflow-y: auto;
+  height: 100vh;
 }
 </style>

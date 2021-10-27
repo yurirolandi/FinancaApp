@@ -1,6 +1,6 @@
 <template>
-  <v-app-bar color="primary" dense dark fixed>
-    <v-avatar color="secondary" size="38">
+  <v-app-bar height="60" color="white" dense dark absolute>
+    <v-avatar color="primary" size="38">
       <span class="white--text text-h6">
         {{ setInitialName }}
       </span>
@@ -40,10 +40,12 @@ export default {
   &__welcome {
     font-size: 1.1rem;
     margin-right: 0.2rem;
+    color: #000;
   }
   &__name {
     font-size: 1.2rem;
     text-align: center;
+    color: #000;
   }
 }
 </style>

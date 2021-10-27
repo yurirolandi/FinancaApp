@@ -1,9 +1,9 @@
 <template>
   <v-bottom-navigation
     id="bottom-navigation"
-    active-class="btn_active primary"
+    active-class="btn_active"
     shift
-    fixed
+    absolute
   >
     <v-btn v-for="(item, index) in items" :key="index" router :to="item.route">
       <span>{{ item.title }}</span>
@@ -39,7 +39,8 @@ export default {
     padding: 0 16px;
   }
   .btn_active {
-    color: #fff !important;
+    border-top: 2px solid #6200ea;
+    color: #6200ea !important;
   }
 }
 </style>
