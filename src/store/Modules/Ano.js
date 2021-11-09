@@ -39,14 +39,14 @@ export default {
   actions: {
     async getAno({ commit, dispatch }, payload) {
       try {
-        commit("setLoadingFullScreen", true);
+        commit("setLoadingSkeleton", true);
         commit("setLoadedData", false);
         const ano = await AnoService.get(payload);
         commit("setCurrentAno", ano);
         commit("setLoadedData", true);
-        commit("setLoadingFullScreen", false);
+        commit("setLoadingSkeleton", false);
       } catch (error) {
-        commit("setLoadingFullScreen", false);
+        commit("setLoadingSkeleton", false);
         commit("setLoadedData", false);
         dispatch("showSnackBar", ["Erro ao buscar o ano", "error"]);
       }

@@ -27,14 +27,14 @@ export default {
   actions: {
     async refreshMonth({ commit, dispatch }, payload) {
       try {
-        commit("setLoadingFullScreen", true);
+        commit("setLoadingSkeleton", true);
         const data = await MesesService.get(payload);
         let valorTotal = data.compras.map((compra) => compra.valor);
         commit("setCurrentMonth", data);
         commit("setValueTotal", valorTotal);
-        commit("setLoadingFullScreen", false);
+        commit("setLoadingSkeleton", false);
       } catch (error) {
-        commit("setLoadingFullScreen", false);
+        commit("setLoadingSkeleton", false);
         dispatch("showSnackBar", ["Erro ao buscar o ano", "error"]);
       }
     },

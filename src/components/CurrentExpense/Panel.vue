@@ -1,6 +1,12 @@
 <template>
   <div class="panel">
-    <h2 class="pa-2">Gastos do mês de {{ compra ? compra.mes : "" }}</h2>
+    <h2 class="pa-2">
+      {{
+        skeleton
+          ? "Carregando gasto do mês..."
+          : `Gastos do mês de ${compra.mes}`
+      }}
+    </h2>
     <div class="mt-3">
       <ListItem v-if="compra.length" nome="Compras" valor="valor">
         <template v-slot:item> Parcelas </template>
@@ -24,6 +30,7 @@ import { mapGetters, mapActions } from "vuex";
 import ItemsCurrent from "./ItemsCurrent.vue";
 import NotItemCurrent from "./NotItemsCurrent.vue";
 import ListItem from "./ListItem.vue";
+
 export default {
   name: "Panel",
   components: {
@@ -35,6 +42,7 @@ export default {
     ...mapGetters({
       compra: "getCurrentMonth",
       total: "getFilterValue",
+      skeleton: "getLoadingSkeleton",
     }),
   },
   methods: {

@@ -9,12 +9,15 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@capacitor-community/electron": "^4.0.3",
     "@capacitor/android": "2.4.7",
-    "@capacitor/cli": "^2.4.7",
-    "@capacitor/core": "^2.4.7",
+    "@capacitor/cli": "^3.3.1",
+    "@capacitor/core": "^3.3.1",
+    "@capacitor/electron": "^2.5.0",
     "@capacitor/ios": "^3.2.5",
     "chart.js": "2",
     "core-js": "^3.6.5",
+    "electron-packager": "^15.4.0",
     "vue": "^2.6.11",
     "vue-chartjs": "^3.5.1",
     "vue-router": "^3.2.0",

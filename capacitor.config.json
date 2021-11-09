@@ -2,7 +2,7 @@
   "appId": "yurirolandi.com.br",
   "appName": "Finança",
   "bundledWebRuntime": false,
-  "npmClient": "yarn",
+  "npmClient": "npm",
   "webDir": "dist",
   "plugins": {
     "SplashScreen": {
